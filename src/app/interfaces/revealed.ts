@@ -1,7 +1,8 @@
 import { Group } from './group';
+import { Source } from './source';
 
 export interface Revealed { // 
-    destination: string; // obtainer of knowledge
+    destinationId: number; // obtainer of knowledge
     percentage: number; // amount of group who knows this
-    source: string; // source of knowledge
+    source: Source; // source of knowledge
 }

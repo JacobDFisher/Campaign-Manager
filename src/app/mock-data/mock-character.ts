@@ -1,60 +1,75 @@
 import { Entity } from '../interfaces/entity'
+import { SourceType } from '../interfaces/source'
 
 export const CHARACTERS: Entity[] = [
     {
-        id: 'Character 1',
+        id: 1,
+        name: 'Character 1',
+        author: 3,
         properties: [
             {
                 name: 'name',
                 detail: {
                     description: 'Character 1',
-                    author: 'Player 1',
+                    author: 3,
                     revealed: [{
-                        source: "Player 1",
-                        destination: "All",
+                        source: {sourceType: SourceType.Identity, id: 3},
+                        destinationId: 0,
                         percentage: 100
                     }]
                 }
             }],
         details: [{
             description: "Has a large family",
-            author: "Player 1",
+            author: 3,
             revealed: [{
-                source: "Player 1",
-                destination: "All",
+                source: {sourceType: SourceType.Identity, id: 3},
+                destinationId: 0,
                 percentage: 100
             }]
         },
         {
             description: "Part of a global conspiracy",
-            author: "Runner",
+            author: 1,
             revealed: [{
-                source: "Runner",
-                destination: "Player 1",
+                source: {sourceType: SourceType.Identity, id: 1},
+                destinationId: 3,
                 percentage: 100
             }]
         }
-    ]
+    ],
+    revealed: [{
+        source: {sourceType: SourceType.Identity, id: 3},
+        destinationId: 0,
+        percentage: 100
+    }]
     },
     {
-        id: 'Character 2',
+        id: 2,
+        name: 'Character 2',
+        author: 4,
         properties: [
             {
                 name: 'name',
                 detail: {
                     description: 'Character 2',
-                    author: 'Player 2',
+                    author: 4,
                     revealed: [{
-                        source: "Player 2",
-                        destination: "All",
+                        source: {sourceType: SourceType.Identity, id: 4},
+                        destinationId: 0,
                         percentage: 100
                     }]
                 }
             }],
         details: [{
             description: "Tall",
-            author: 'Player 2',
+            author: 4,
             revealed: []
+        }],
+        revealed: [{
+            source: {sourceType: SourceType.Identity, id: 4},
+            destinationId: 2,
+            percentage: 100
         }]
     }
 ]

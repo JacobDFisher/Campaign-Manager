@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let entity of entities">
+        <app-entity-view [entity]="entity"></app-entity-view><strong (click)="close(entity.id)">X</strong>
+    </li>
+</ul>

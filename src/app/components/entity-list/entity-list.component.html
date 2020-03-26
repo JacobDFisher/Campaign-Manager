@@ -1,0 +1,5 @@
+<ul>
+    <li *ngFor="let entity of entities">
+        <button (click)="selectEntity(entity.id)">{{entity.name}}</button>
+    </li>
+</ul>

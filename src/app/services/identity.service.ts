@@ -17,10 +17,10 @@ export class IdentityService {
 
   identities$: BehaviorSubject<Identity[]>;
   identity$: BehaviorSubject<Identity>;
-  groups$: BehaviorSubject<string[]>;
+  groups$: BehaviorSubject<number[]>;
 
-  setIdentity(name: string): void{
-    let newIdentity = IDENTITIES.find(e => e.name==name);
+  setIdentity(id: number): void{
+    let newIdentity = IDENTITIES.find(e => e.id==id);
     this.identity$.next(newIdentity); 
     this.groupService.getGroups(newIdentity.groups).subscribe(
       groups => this.groups$.next(groups)

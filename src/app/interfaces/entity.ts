@@ -1,8 +1,12 @@
 import { Detail } from './detail'
+import { Property } from './property';
 import { Revealed } from './revealed';
 
 export interface Entity {
-    id : string;
-    properties: {name: string, detail: Detail}[];
+    id : number;
+    name: string;
+    author: number;
+    revealed?: Revealed[];
+    properties: Property[];
     details: Detail[];
 }

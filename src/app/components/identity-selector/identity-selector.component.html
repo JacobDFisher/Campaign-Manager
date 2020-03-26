@@ -1,6 +1,6 @@
 <ul>
     <li *ngFor="let id of identities">
-        <button (click)="selectIdentity(id.name)">{{id.name}}</button>
+        <button (click)="selectIdentity(id.id)">{{id.name}}</button>
     </li>
 </ul>
 <span><strong>Currently: </strong>{{identity.name}}</span>

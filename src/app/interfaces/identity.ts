@@ -1,6 +1,7 @@
 import { Group } from './group';
 
 export interface Identity{
+    id?: number;
     name: string;
-    groups?: string[];
+    groups?: number[];
 }

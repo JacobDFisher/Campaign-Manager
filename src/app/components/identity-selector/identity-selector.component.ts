@@ -11,7 +11,7 @@ export class IdentitySelectorComponent implements OnInit {
 
   identities: Identity[];
   identity: Identity;
-  groups: string[];
+  groups: number[];
 
   constructor(public identityService: IdentityService) { }
 
@@ -27,7 +27,7 @@ export class IdentitySelectorComponent implements OnInit {
     });
   }
 
-  selectIdentity(idName: string): void{
-    this.identityService.setIdentity(idName);
+  selectIdentity(id: number): void{
+    this.identityService.setIdentity(id);
   }
 }

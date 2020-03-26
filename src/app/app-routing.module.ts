@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router'
-import { CharacterViewComponent } from './components/character-view/character-view.component';
+import { EntitiesViewComponent } from './components/entities-view/entities-view.component';
 
 const routes: Routes = [
-  { path: '', component: CharacterViewComponent, pathMatch: 'full' }
+  { path: '', component: EntitiesViewComponent, pathMatch: 'full' }
 ];
 
 @NgModule({

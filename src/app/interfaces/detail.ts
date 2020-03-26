@@ -2,6 +2,6 @@ import { Revealed } from './revealed';
 
 export interface Detail{
     description: string;
-    author: string;
+    author: number;
     revealed: Revealed[];
 }
