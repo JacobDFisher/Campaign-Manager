@@ -12,7 +12,7 @@ namespace DataAccess.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int PermissionsId { get; set; }
-        public Permissions<Detail> Permissions { get; set; }
+        public Permissions Permissions { get; set; }
         public int EntityId { get; set; }
         public Entity Entity { get; set; }
     }
@@ -26,7 +26,7 @@ namespace DataAccess.Models
             builder.Property(d => d.Description)
                 .IsRequired();
             builder.HasOne(d => d.Permissions)
-                .WithMany(p => p.EndPoints)
+                .WithMany(p => p.Details)
                 .HasForeignKey(d => d.PermissionsId)
                 .IsRequired();
             builder.HasOne(d => d.Entity)

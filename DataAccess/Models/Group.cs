@@ -11,10 +11,8 @@ namespace DataAccess.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Revealed<Entity>> RevealedEntities { get; set; }
-        public IEnumerable<Revealed<Detail>> RevealedDetails { get; set; }
-        public IEnumerable<Permission<Entity>> EntityGrants { get; set; }
-        public IEnumerable<Permission<Detail>> DetailGrants { get; set; }
+        public IEnumerable<Revealed> Revealeds { get; set; }
+        public IEnumerable<Permission> Grants { get; set; }
         public IEnumerable<GroupJoin<Group>> MemberOf { get; set; }
         public IEnumerable<GroupJoin<Group>> MemberGroups { get; set; }
         public IEnumerable<GroupJoin<Identity>> MemberIdentities { get; set; }
@@ -26,16 +24,10 @@ namespace DataAccess.Models
         {
             builder.HasKey(g => g.Id);
             builder.Property(g => g.Name);
-            builder.HasMany(g => g.RevealedDetails)
+            builder.HasMany(g => g.Revealeds)
                 .WithOne(r => r.Group)
                 .HasForeignKey(r => r.GroupId);
-            builder.HasMany(g => g.RevealedEntities)
-                .WithOne(r => r.Group)
-                .HasForeignKey(r => r.GroupId);
-            builder.HasMany(g => g.EntityGrants)
-                .WithOne(p => p.Grantee)
-                .HasForeignKey(p => p.GranteeId);
-            builder.HasMany(g => g.DetailGrants)
+            builder.HasMany(g => g.Grants)
                 .WithOne(p => p.Grantee)
                 .HasForeignKey(p => p.GranteeId);
             builder.HasMany(g => g.MemberOf)

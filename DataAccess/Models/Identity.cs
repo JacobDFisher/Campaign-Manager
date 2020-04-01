@@ -12,10 +12,8 @@ namespace DataAccess.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public IEnumerable<GroupJoin<Identity>> IdentityGroups { get; set; }
-        public IEnumerable<Permission<Entity>> EntityGrants { get; set; }
-        public IEnumerable<Permission<Detail>> DetailGrants { get; set; }
-        public IEnumerable<Permissions<Entity>> EntityAuthorships { get; set; }
-        public IEnumerable<Permissions<Detail>> DetailAuthorships { get; set; }
+        public IEnumerable<Permission> Grants { get; set; }
+        public IEnumerable<Permissions> Authorships { get; set; }
     }
     public class IdentityConfiguration : IEntityTypeConfiguration<Identity>
     {
@@ -26,16 +24,10 @@ namespace DataAccess.Models
             builder.HasMany(i => i.IdentityGroups)
                 .WithOne(ig => ig.Member)
                 .HasForeignKey(ig => ig.MemberId);
-            builder.HasMany(i => i.EntityGrants)
+            builder.HasMany(i => i.Grants)
                 .WithOne(p => p.Grantor)
                 .HasForeignKey(p => p.GrantorId);
-            builder.HasMany(i => i.DetailGrants)
-                .WithOne(p => p.Grantor)
-                .HasForeignKey(p => p.GrantorId);
-            builder.HasMany(i => i.EntityAuthorships)
-                .WithOne(ps => ps.Author)
-                .HasForeignKey(ps => ps.AuthorId);
-            builder.HasMany(i => i.DetailAuthorships)
+            builder.HasMany(i => i.Authorships)
                 .WithOne(ps => ps.Author)
                 .HasForeignKey(ps => ps.AuthorId);
         }

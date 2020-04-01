@@ -18,14 +18,14 @@ namespace DataAccess
             return from entity in entities select Map(entity);
         }
         
-        public static IEnumerable<Lib.Models.Revealed> Map<T>(IEnumerable<Models.Revealed<T>> revealed)
+        public static IEnumerable<Lib.Models.Revealed> Map(IEnumerable<Models.Revealed> revealed)
         {
             if (revealed == null)
                 return null;
             return from rev in revealed select Map(rev);
         }
         
-        public static IEnumerable<Lib.Models.Permission> Map<T>(IEnumerable<Models.Permission<T>> perms)
+        public static IEnumerable<Lib.Models.Permission> Map(IEnumerable<Models.Permission> perms)
         {
             if (perms == null)
                 return null;
@@ -102,7 +102,7 @@ namespace DataAccess
             };
         }
 
-        public static Lib.Models.Permission Map<T>(Models.Permission<T> perm)
+        public static Lib.Models.Permission Map(Models.Permission perm)
         {
             if (perm == null)
                 return null;
@@ -114,7 +114,7 @@ namespace DataAccess
             };
         }
 
-        public static Lib.Models.Permissions Map<T>(Models.Permissions<T> permissions)
+        public static Lib.Models.Permissions Map(Models.Permissions permissions)
         {
             if (permissions == null)
                 return null;
@@ -122,11 +122,11 @@ namespace DataAccess
             {
                 Author = (permissions.Author == null)? new Lib.Models.Identity() { Id = permissions.AuthorId } : Map(permissions.Author),
                 Perms = Map(permissions.Perms),
-                Revealed = Map(permissions.Revealed)
+                Revealed = Map(permissions.Revealeds)
             };
         }
         
-        public static Lib.Models.Revealed Map<T>(Models.Revealed<T> revealed)
+        public static Lib.Models.Revealed Map(Models.Revealed revealed)
         {
             if (revealed == null)
                 return null;
@@ -145,12 +145,12 @@ namespace DataAccess
                 return null;
             return from entity in entities select Map(entity);
         }
-        private static IEnumerable<Revealed<T>> Map<T>(IEnumerable<Revealed> revealed)
+        private static IEnumerable<Models.Revealed> Map(IEnumerable<Lib.Models.Revealed> revealed)
         {
             throw new NotImplementedException();
         }
 
-        private static IEnumerable<Permission<T>> Map<T>(IEnumerable<Permission> perms)
+        private static IEnumerable<Models.Permission> Map(IEnumerable<Lib.Models.Permission> perms)
         {
             throw new NotImplementedException();
         }
@@ -159,7 +159,7 @@ namespace DataAccess
             throw new NotImplementedException();
         }
 
-        private static IEnumerable<Models.Detail> Map(IEnumerable<Property> properties)
+        private static IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Property> properties)
         {
             throw new NotImplementedException();
         }
@@ -177,22 +177,22 @@ namespace DataAccess
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Permissions = Map<Models.Entity>(entity.Permissions),
+                Permissions = Map(entity.Permissions),
                 Details = Map(entity.Details).Concat(Map(entity.Properties)),
                 EntityGroups = Map(entity.Groups)
             };
         }
 
-        public static Models.Permissions<T> Map<T>(Lib.Models.Permissions permissions)
+        public static Models.Permissions Map(Lib.Models.Permissions permissions)
         {
             if (permissions == null)
                 return null;
-            return new Models.Permissions<T>()
+            return new Models.Permissions()
             {
                 Author = Map(permissions.Author),
                 AuthorId = (int)permissions.Author?.Id,
-                Perms = Map<T>(permissions.Perms),
-                Revealed = Map<T>(permissions.Revealed)
+                Perms = Map(permissions.Perms),
+                Revealeds = Map(permissions.Revealed)
             };
         }
 

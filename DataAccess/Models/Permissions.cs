@@ -6,42 +6,40 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class Permissions<T>
+    public class Permissions
     {
         public int Id { get; set; }
         public int AuthorId { get; set; }
         public Identity Author { get; set; }
-        public IEnumerable<T> EndPoints { get; set; }
-        public IEnumerable<Permission<T>> Perms { get; set; }
-        public IEnumerable<Revealed<T>> Revealed { get; set; }
+        public IEnumerable<Detail> Details { get; set; }
+        public IEnumerable<Entity> Entities { get; set; }
+        public IEnumerable<Permission> Perms { get; set; }
+        public IEnumerable<Revealed> Revealeds { get; set; }
     }
-    public class EntityPermissionsConfiguration : IEntityTypeConfiguration<Permissions<Entity>>
+    public class PermissionsConfiguration : IEntityTypeConfiguration<Permissions>
     {
-        public void Configure(EntityTypeBuilder<Permissions<Entity>> builder)
+        public void Configure(EntityTypeBuilder<Permissions> builder)
         {
             builder.HasKey(p => p.Id);
             builder.HasOne(p => p.Author)
-                .WithMany(a => a.EntityAuthorships)
+                .WithMany(a => a.Authorships)
                 .HasForeignKey(p => p.AuthorId)
                 .IsRequired();
-            builder.HasMany(p => p.EndPoints)
+            builder.HasMany(p => p.Details)
                 .WithOne(e => e.Permissions)
                 .HasForeignKey(e => e.PermissionsId)
                 .IsRequired();
-        }
-    }
-    public class DetailPermissionsConfiguration : IEntityTypeConfiguration<Permissions<Detail>>
-    {
-        public void Configure(EntityTypeBuilder<Permissions<Detail>> builder)
-        {
-            builder.HasKey(p => p.Id);
-            builder.HasOne(p => p.Author)
-                .WithMany(a => a.DetailAuthorships)
-                .HasForeignKey(p => p.AuthorId)
-                .IsRequired();
-            builder.HasMany(p => p.EndPoints)
+            builder.HasMany(p => p.Entities)
                 .WithOne(e => e.Permissions)
-                .HasForeignKey(d => d.PermissionsId)
+                .HasForeignKey(e => e.PermissionsId)
+                .IsRequired();
+            builder.HasMany(p => p.Perms)
+                .WithOne(p => p.Permissions)
+                .HasForeignKey(p => p.PermissionsId)
+                .IsRequired();
+            builder.HasMany(p => p.Revealeds)
+                .WithOne(r => r.Permissions)
+                .HasForeignKey(r => r.PermissionsId)
                 .IsRequired();
         }
     }

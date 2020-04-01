@@ -31,7 +31,7 @@ namespace DataAccess.Repositories
                 .Include(e => e.Permissions)
                 .ThenInclude(p => p.Perms)
                 .Include(e => e.Permissions)
-                .ThenInclude(p => p.Revealed)
+                .ThenInclude(p => p.Revealeds)
                 .AsNoTracking();
             if (!header)
             {
@@ -43,7 +43,7 @@ namespace DataAccess.Repositories
                     .ThenInclude(p => p.Perms)
                     .Include(e => e.Details)
                     .ThenInclude(d => d.Permissions)
-                    .ThenInclude(p => p.Revealed);
+                    .ThenInclude(p => p.Revealeds);
                     //.Include(e => e.EntityGroups);
             }
             return Mapper.Map(await retrieved.ToListAsync());

@@ -18,12 +18,9 @@ namespace DataAccess
         public virtual DbSet<GroupJoin<Entity>> EntityGroups { get; set; }
         public virtual DbSet<GroupJoin<Identity>> IdentityGroups { get; set; }
         public virtual DbSet<Identity> Identities { get; set; }
-        public virtual DbSet<Permission<Detail>> PermissionDetails { get; set; }
-        public virtual DbSet<Permission<Entity>> PermissionEntities { get; set; }
-        public virtual DbSet<Permissions<Detail>> PermissionsDetails { get; set; }
-        public virtual DbSet<Permissions<Entity>> PermissionsEntities { get; set; }
-        public virtual DbSet<Revealed<Detail>> RevealedDetails { get; set; }
-        public virtual DbSet<Revealed<Entity>> RevealedEntities { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Permissions> Permissionses { get; set; }
+        public virtual DbSet<Revealed> Revealeds { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,12 +28,9 @@ namespace DataAccess
             modelBuilder.ApplyConfiguration(new EntityConfiguration());
             modelBuilder.ApplyConfiguration(new GroupConfiguration());
             modelBuilder.ApplyConfiguration(new IdentityConfiguration());
-            modelBuilder.ApplyConfiguration(new EntityPermissionConfiguration());
-            modelBuilder.ApplyConfiguration(new DetailPermissionConfiguration());
-            modelBuilder.ApplyConfiguration(new EntityPermissionsConfiguration());
-            modelBuilder.ApplyConfiguration(new DetailPermissionsConfiguration());
-            modelBuilder.ApplyConfiguration(new EntityRevealedConfiguration());
-            modelBuilder.ApplyConfiguration(new DetailRevealedConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionsConfiguration());
+            modelBuilder.ApplyConfiguration(new RevealedConfiguration());
 
             // Many-to-Many Tables
             modelBuilder.ApplyConfiguration(new GroupEntityConfiguration());

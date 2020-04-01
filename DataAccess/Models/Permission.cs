@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DataAccess.Models
 {
-    public class Permission<T>
+    public class Permission
     {
         public PermissionType PermissionType { get; set; }
         public int GrantorId { get; set; }
@@ -15,44 +15,22 @@ namespace DataAccess.Models
         public int GranteeId { get; set; }
         public Group Grantee { get; set; }
         public int PermissionsId { get; set; }
-        public Permissions<T> Permissions { get; set; }
+        public Permissions Permissions { get; set; }
     }
 
-    public class EntityPermissionConfiguration : IEntityTypeConfiguration<Permission<Entity>>
+    public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
     {
-        public void Configure(EntityTypeBuilder<Permission<Entity>> builder)
+        public void Configure(EntityTypeBuilder<Permission> builder)
         {
             builder.HasKey(p => new { p.GrantorId, p.GranteeId, p.PermissionsId });
             builder.Property(p => p.PermissionType)
                 .IsRequired();
             builder.HasOne(p => p.Grantor)
-                .WithMany(i => i.EntityGrants)
+                .WithMany(i => i.Grants)
                 .HasForeignKey(p => p.GrantorId)
                 .IsRequired();
             builder.HasOne(p => p.Grantee)
-                .WithMany(g => g.EntityGrants)
-                .HasForeignKey(p => p.GranteeId)
-                .IsRequired();
-            builder.HasOne(p => p.Permissions)
-                .WithMany(p => p.Perms)
-                .HasForeignKey(p => p.PermissionsId)
-                .IsRequired();
-
-        }
-    }
-    public class DetailPermissionConfiguration : IEntityTypeConfiguration<Permission<Detail>>
-    {
-        public void Configure(EntityTypeBuilder<Permission<Detail>> builder)
-        {
-            builder.HasKey(p => new { p.GrantorId, p.GranteeId, p.PermissionsId });
-            builder.Property(p => p.PermissionType)
-                .IsRequired();
-            builder.HasOne(p => p.Grantor)
-                .WithMany(i => i.DetailGrants)
-                .HasForeignKey(p => p.GrantorId)
-                .IsRequired();
-            builder.HasOne(p => p.Grantee)
-                .WithMany(g => g.DetailGrants)
+                .WithMany(g => g.Grants)
                 .HasForeignKey(p => p.GranteeId)
                 .IsRequired();
             builder.HasOne(p => p.Permissions)

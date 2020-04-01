@@ -10,9 +10,9 @@ namespace Lib.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Permissions<Entity> Permissions { get; set; }
-        public IEnumerable<Revealed<Entity>> RevealedEntities { get; set; }
-        public IEnumerable<Revealed<Detail>> RevealedDetails { get; set; }
+        public Permissions Permissions { get; set; }
+        public IEnumerable<Revealed> RevealedEntities { get; set; }
+        public IEnumerable<Revealed> RevealedDetails { get; set; }
         public IEnumerable<Property> Properties { get; set; }
         public IEnumerable<Detail> Details { get; set; }
         public IEnumerable<Group> Groups { get; set; }

@@ -22,13 +22,13 @@ namespace API
             };
         }
 
-        public static IEnumerable<Models.Revealed> Map<T>(IEnumerable<Lib.Models.Revealed<T>> revealed){
+        public static IEnumerable<Models.Revealed> Map(IEnumerable<Lib.Models.Revealed> revealed){
             return from r in revealed select Map(r);
         }
 
-        public static Revealed Map<T>(Lib.Models.Revealed<T> revealed)
+        public static Models.Revealed Map(Lib.Models.Revealed revealed)
         {
-            return new Revealed()
+            return new Models.Revealed()
             {
                 //DestinationId = revealed.DestinationId,
                 Percentage = revealed.Percentage,
@@ -40,9 +40,9 @@ namespace API
         {
             return from e in entities select Map(e);
         }
-        public static Entity Map(Lib.Models.Entity entity)
+        public static Models.Entity Map(Lib.Models.Entity entity)
         {
-            return new Entity()
+            return new Models.Entity()
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -52,14 +52,14 @@ namespace API
             };
         }
 
-        private static IEnumerable<Property> Map(IEnumerable<Lib.Models.Property> properties)
+        private static IEnumerable<Models.Property> Map(IEnumerable<Lib.Models.Property> properties)
         {
             return from p in properties select Map(p);
         }
 
-        private static Property Map(Lib.Models.Property p)
+        private static Models.Property Map(Lib.Models.Property p)
         {
-            return new Property()
+            return new Models.Property()
             {
                 Name = p.Name,
                 Detail = Map(p.Detail)
@@ -71,9 +71,9 @@ namespace API
             return from d in details select Map(d);
         }
 
-        private static Detail Map(Lib.Models.Detail d)
+        private static Models.Detail Map(Lib.Models.Detail d)
         {
-            return new Detail()
+            return new Models.Detail()
             {
                 //Author = d.Author,
                 Description = d.Description,

@@ -11,9 +11,8 @@ namespace DataAccess.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int PermissionsId { get; set; }
-        public Permissions<Entity> Permissions { get; set; }
-        public IEnumerable<Revealed<Entity>> RevealedEntities { get; set; }
-        public IEnumerable<Revealed<Detail>> RevealedDetails { get; set; }
+        public Permissions Permissions { get; set; }
+        public IEnumerable<Revealed> Revealeds { get; set; }
         public IEnumerable<Detail> Details { get; set; }
         public IEnumerable<GroupJoin<Entity>> EntityGroups { get; set; }
     }
@@ -24,7 +23,7 @@ namespace DataAccess.Models
             builder.HasKey(e => e.Id);
             builder.Property(e => e.Name);
             builder.HasOne(e => e.Permissions)
-                .WithMany(p => p.EndPoints)
+                .WithMany(p => p.Entities)
                 .HasForeignKey(e => e.PermissionsId)
                 .IsRequired();
             builder.HasMany(e => e.Details) 
@@ -33,10 +32,7 @@ namespace DataAccess.Models
             builder.HasMany(e => e.EntityGroups)
                 .WithOne(eg => eg.Member)
                 .HasForeignKey(eg => eg.MemberId);
-            builder.HasMany(e => e.RevealedDetails)
-                .WithOne(r => r.Source)
-                .HasForeignKey(r => r.SourceId);
-            builder.HasMany(e => e.RevealedEntities)
+            builder.HasMany(e => e.Revealeds)
                 .WithOne(r => r.Source)
                 .HasForeignKey(r => r.SourceId);
         }

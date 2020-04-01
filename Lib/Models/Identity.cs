@@ -11,9 +11,9 @@ namespace Lib.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public IEnumerable<Group> Groups { get; set; }
-        public IEnumerable<Permission<Entity>> EntityGrants { get; set; }
-        public IEnumerable<Permission<Detail>> DetailGrants { get; set; }
-        public IEnumerable<Permissions<Entity>> EntityAuthorships { get; set; }
-        public IEnumerable<Permissions<Detail>> DetailAuthorships { get; set; }
+        public IEnumerable<Permission> EntityGrants { get; set; }
+        public IEnumerable<Permission> DetailGrants { get; set; }
+        public IEnumerable<Permissions> EntityAuthorships { get; set; }
+        public IEnumerable<Permissions> DetailAuthorships { get; set; }
     }
 }
