@@ -1,0 +1,10 @@
+networks:
+  locally:
+
+services:
+  campaign_data:
+    environment:
+      POSTGRES_PASSWORD: 'Pass@word'
+    image: postgres:alpine
+    networks:
+      - locally
