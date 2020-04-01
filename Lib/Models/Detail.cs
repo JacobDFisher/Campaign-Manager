@@ -7,7 +7,7 @@ namespace Lib.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public Permissions<Detail> Permissions { get; set; }
+        public Permissions Permissions { get; set; }
         public Entity Entity { get; set; }
     }
 }

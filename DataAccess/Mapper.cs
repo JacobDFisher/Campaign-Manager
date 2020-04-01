@@ -10,14 +10,41 @@ namespace DataAccess
 {
     static class Mapper
     {
-        internal static IEnumerable<Lib.Models.Entity> Map(IEnumerable<Models.Entity> entities)
+        // Map Up
+        public static IEnumerable<Lib.Models.Entity> Map(IEnumerable<Models.Entity> entities)
         {
             if (entities == null)
                 return null;
             return from entity in entities select Map(entity);
         }
+        
+        public static IEnumerable<Lib.Models.Revealed> Map<T>(IEnumerable<Models.Revealed<T>> revealed)
+        {
+            if (revealed == null)
+                return null;
+            return from rev in revealed select Map(rev);
+        }
+        
+        public static IEnumerable<Lib.Models.Permission> Map<T>(IEnumerable<Models.Permission<T>> perms)
+        {
+            if (perms == null)
+                return null;
+            return from perm in perms select Map(perm);
+        }
 
-        private static Lib.Models.Entity Map(Models.Entity entity)
+        public static Lib.Models.Detail Map(Models.Detail detail)
+        {
+            if (detail == null)
+                return null;
+            return new Lib.Models.Detail()
+            {
+                Id = detail.Id,
+                Description = detail.Description,
+                Permissions = Map(detail.Permissions)
+            };
+        }
+
+        public static Lib.Models.Entity Map(Models.Entity entity)
         {
             if (entity == null)
                 return null;
@@ -51,50 +78,7 @@ namespace DataAccess
             return ent;
         }
 
-        private static Lib.Models.Detail Map(Models.Detail detail)
-        {
-            if (detail == null)
-                return null;
-            return new Lib.Models.Detail()
-            {
-                Id = detail.Id,
-                Description = detail.Description,
-                Permissions = Map(detail.Permissions)
-            };
-        }
-
-        private static Lib.Models.Permissions<Lib.Models.Detail> Map(Models.Permissions<Models.Detail> permissions)
-        {
-            if (permissions == null)
-                return null;
-            return new Lib.Models.Permissions<Lib.Models.Detail>()
-            {
-                Author = (permissions.Author == null)? new Lib.Models.Identity() { Id = permissions.AuthorId } : Map(permissions.Author),
-                Perms = Map(permissions.Perms),
-                Revealed = Map(permissions.Revealed)
-            };
-        }
-
-        private static IEnumerable<Lib.Models.Revealed> Map(IEnumerable<Models.Revealed<Models.Detail>> revealed)
-        {
-            if (revealed == null)
-                return null;
-            return from rev in revealed select Map(rev);
-        }
-
-        private static Lib.Models.Revealed Map(Models.Revealed<Models.Detail> revealed)
-        {
-            if (revealed == null)
-                return null;
-            return new Lib.Models.Revealed()
-            {
-                Percentage = revealed.Percentage,
-                Group = (revealed.Group == null)? new Lib.Models.Group() { Id = revealed.GroupId } : Map(revealed.Group),
-                Source = (revealed.Source == null)? new Lib.Models.Entity() { Id = revealed.SourceId } : Map(revealed.Source)
-            };
-        }
-
-        private static Lib.Models.Group Map(Models.Group group)
+        public static Lib.Models.Group Map(Models.Group group)
         {
             if (group == null)
                 return null;
@@ -106,14 +90,19 @@ namespace DataAccess
             };
         }
 
-        private static IEnumerable<Lib.Models.Permission> Map(IEnumerable<Models.Permission<Models.Detail>> perms)
+        public static Lib.Models.Identity Map(Models.Identity identity)
         {
-            if (perms == null)
+            if (identity == null)
                 return null;
-            return from perm in perms select Map(perm);
+            return new Lib.Models.Identity()
+            {
+                Id = identity.Id,
+                Name = identity.Name,
+                Groups = (identity.IdentityGroups == null) ? null : from g in identity.IdentityGroups select (g.Group == null) ? new Lib.Models.Group() { Id = g.GroupId } : Map(g.Group),
+            };
         }
 
-        private static Lib.Models.Permission Map(Permission<Models.Detail> perm)
+        public static Lib.Models.Permission Map<T>(Models.Permission<T> perm)
         {
             if (perm == null)
                 return null;
@@ -125,38 +114,89 @@ namespace DataAccess
             };
         }
 
-        private static Lib.Models.Identity Map(Models.Identity identity)
-        {
-            if (identity == null)
-                return null;
-            return new Lib.Models.Identity()
-            {
-                Id = identity.Id,
-                Name = identity.Name,
-                Groups = (identity.IdentityGroups == null)? null : from g in identity.IdentityGroups select (g.Group == null)? new Lib.Models.Group() { Id = g.GroupId } : Map(g.Group),
-            };
-        }
-
-        private static Lib.Models.Permissions<Lib.Models.Entity> Map(Models.Permissions<Models.Entity> permissions)
+        public static Lib.Models.Permissions Map<T>(Models.Permissions<T> permissions)
         {
             if (permissions == null)
                 return null;
-            if (permissions == null)
-                return null;
-            return new Lib.Models.Permissions<Lib.Models.Entity>()
+            return new Lib.Models.Permissions()
             {
-                Author = (permissions.Author == null) ? new Lib.Models.Identity() { Id = permissions.AuthorId } : Map(permissions.Author),
+                Author = (permissions.Author == null)? new Lib.Models.Identity() { Id = permissions.AuthorId } : Map(permissions.Author),
                 Perms = Map(permissions.Perms),
                 Revealed = Map(permissions.Revealed)
             };
         }
+        
+        public static Lib.Models.Revealed Map<T>(Models.Revealed<T> revealed)
+        {
+            if (revealed == null)
+                return null;
+            return new Lib.Models.Revealed()
+            {
+                Percentage = revealed.Percentage,
+                Group = (revealed.Group == null)? new Lib.Models.Group() { Id = revealed.GroupId } : Map(revealed.Group),
+                Source = (revealed.Source == null)? new Lib.Models.Entity() { Id = revealed.SourceId } : Map(revealed.Source)
+            };
+        }
 
-        private static IEnumerable<Revealed> Map(IEnumerable<Revealed<Models.Entity>> revealed)
+        // Map Down
+        public static IEnumerable<Models.Entity> Map(IEnumerable<Lib.Models.Entity> entities)
+        {
+            if (entities == null)
+                return null;
+            return from entity in entities select Map(entity);
+        }
+        private static IEnumerable<Revealed<T>> Map<T>(IEnumerable<Revealed> revealed)
         {
             throw new NotImplementedException();
         }
 
-        private static IEnumerable<Permission> Map(IEnumerable<Permission<Models.Entity>> perms)
+        private static IEnumerable<Permission<T>> Map<T>(IEnumerable<Permission> perms)
+        {
+            throw new NotImplementedException();
+        }
+        private static IEnumerable<GroupJoin<Models.Entity>> Map(IEnumerable<Lib.Models.Group> groups)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static IEnumerable<Models.Detail> Map(IEnumerable<Property> properties)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Detail> details)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Models.Entity Map(Lib.Models.Entity entity)
+        {
+            if (entity == null)
+                return null;
+            return new Models.Entity()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Permissions = Map<Models.Entity>(entity.Permissions),
+                Details = Map(entity.Details).Concat(Map(entity.Properties)),
+                EntityGroups = Map(entity.Groups)
+            };
+        }
+
+        public static Models.Permissions<T> Map<T>(Lib.Models.Permissions permissions)
+        {
+            if (permissions == null)
+                return null;
+            return new Models.Permissions<T>()
+            {
+                Author = Map(permissions.Author),
+                AuthorId = (int)permissions.Author?.Id,
+                Perms = Map<T>(permissions.Perms),
+                Revealed = Map<T>(permissions.Revealed)
+            };
+        }
+
+        private static Models.Identity Map(Lib.Models.Identity identity)
         {
             throw new NotImplementedException();
         }

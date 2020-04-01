@@ -26,9 +26,8 @@ namespace DataAccess.Models
             builder.Property(d => d.Description)
                 .IsRequired();
             builder.HasOne(d => d.Permissions)
-                .WithOne(p => p.EndPoint)
-                .HasForeignKey<Detail>(d => d.PermissionsId)
-                // .HasForeignKey<Permissions<Detail>>(p => p.EndPointId)
+                .WithMany(p => p.EndPoints)
+                .HasForeignKey(d => d.PermissionsId)
                 .IsRequired();
             builder.HasOne(d => d.Entity)
                 .WithMany(e => e.Details)

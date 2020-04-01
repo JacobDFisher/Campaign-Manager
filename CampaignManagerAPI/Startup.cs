@@ -44,7 +44,7 @@ namespace API
 
             services.AddDbContext<CampaignManagerDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("CampaignDb")));
 
-            services.AddScoped<IEntityRepository, CampaignRepository>();
+            services.AddScoped<IEntityRepository, EntityRepository>();
 
             services.AddSwaggerGen(c =>
             {

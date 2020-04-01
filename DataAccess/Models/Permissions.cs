@@ -11,8 +11,7 @@ namespace DataAccess.Models
         public int Id { get; set; }
         public int AuthorId { get; set; }
         public Identity Author { get; set; }
-        public int EndPointId { get; set; }
-        public T EndPoint { get; set; }
+        public IEnumerable<T> EndPoints { get; set; }
         public IEnumerable<Permission<T>> Perms { get; set; }
         public IEnumerable<Revealed<T>> Revealed { get; set; }
     }
@@ -25,10 +24,9 @@ namespace DataAccess.Models
                 .WithMany(a => a.EntityAuthorships)
                 .HasForeignKey(p => p.AuthorId)
                 .IsRequired();
-            builder.HasOne(p => p.EndPoint)
+            builder.HasMany(p => p.EndPoints)
                 .WithOne(e => e.Permissions)
-                .HasForeignKey<Permissions<Entity>>(p => p.EndPointId)
-                // .HasForeignKey<Entity>(e => e.PermissionsId)
+                .HasForeignKey(e => e.PermissionsId)
                 .IsRequired();
         }
     }
@@ -41,10 +39,9 @@ namespace DataAccess.Models
                 .WithMany(a => a.DetailAuthorships)
                 .HasForeignKey(p => p.AuthorId)
                 .IsRequired();
-            builder.HasOne(p => p.EndPoint)
+            builder.HasMany(p => p.EndPoints)
                 .WithOne(e => e.Permissions)
-                .HasForeignKey<Permissions<Detail>>(p => p.EndPointId)
-                // .HasForeignKey<Detail>(e => e.PermissionsId)
+                .HasForeignKey(d => d.PermissionsId)
                 .IsRequired();
         }
     }
