@@ -41,6 +41,14 @@ namespace DataAccess.Models
                 .WithOne(r => r.Permissions)
                 .HasForeignKey(r => r.PermissionsId)
                 .IsRequired();
+            builder.HasData(new Permissions[]
+            {
+                new Permissions()
+                {
+                    Id = 1,
+                    AuthorId = 3
+                }
+            });
         }
     }
 }

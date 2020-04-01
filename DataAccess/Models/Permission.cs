@@ -37,7 +37,16 @@ namespace DataAccess.Models
                 .WithMany(p => p.Perms)
                 .HasForeignKey(p => p.PermissionsId)
                 .IsRequired();
-
+            builder.HasData(new Permission[]
+            {
+                new Permission()
+                {
+                    GrantorId = 3,
+                    GranteeId = 1,
+                    PermissionsId = 1,
+                    PermissionType = PermissionType.Viewer
+                }
+            });
         }
     }
 }

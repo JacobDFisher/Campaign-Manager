@@ -30,6 +30,14 @@ namespace DataAccess.Models
             builder.HasMany(i => i.Authorships)
                 .WithOne(ps => ps.Author)
                 .HasForeignKey(ps => ps.AuthorId);
+            builder.HasData(new Identity[]
+            {
+                new Identity()
+                {
+                    Id = 3,
+                    Name = "Player 1"
+                }
+            });
         }
     }
 }

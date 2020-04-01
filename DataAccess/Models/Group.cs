@@ -42,6 +42,14 @@ namespace DataAccess.Models
             builder.HasMany(g => g.MemberEntities)
                 .WithOne(gj => gj.Group)
                 .HasForeignKey(gj => gj.GroupId);
+            builder.HasData(new Group[]
+            {
+                new Group()
+                {
+                    Id = 1,
+                    Name = "All"
+                }
+            });
         }
     }
 }

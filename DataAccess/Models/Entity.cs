@@ -35,6 +35,13 @@ namespace DataAccess.Models
             builder.HasMany(e => e.Revealeds)
                 .WithOne(r => r.Source)
                 .HasForeignKey(r => r.SourceId);
+            builder.HasData(new Entity[]{
+                new Entity() {
+                    Id = 1,
+                    Name = "Character 1",
+                    PermissionsId = 1
+                }
+            });
         }
     }
 }

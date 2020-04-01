@@ -33,6 +33,17 @@ namespace DataAccess.Models
                 .WithMany(e => e.Details)
                 .HasForeignKey(d => d.EntityId)
                 .IsRequired();
+            builder.HasData(new Detail[]
+            {
+                new Detail()
+                {
+                    Id = 1,
+                    Name = "name",
+                    Description = "Character 1",
+                    EntityId = 1,
+                    PermissionsId = 1
+                }
+            });
         }
     }
 }

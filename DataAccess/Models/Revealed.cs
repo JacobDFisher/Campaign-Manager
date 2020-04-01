@@ -35,6 +35,15 @@ namespace DataAccess.Models
                 .WithMany(p => p.Revealeds)
                 .HasForeignKey(r => r.PermissionsId)
                 .IsRequired();
+            //builder.HasData(new Revealed[]
+            //{
+            //    new Revealed()
+            //    {
+            //        PermissionsId = 1,
+            //        SourceId = 3,
+            //        GroupId = 1
+            //    }
+            //});
         }
     }
 }
