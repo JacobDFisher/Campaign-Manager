@@ -11,10 +11,13 @@ namespace DataAccess.Repositories
 {
     public class EntityRepository : IEntityRepository
     {
-        CampaignManagerDbContext _context;
-        public EntityRepository(CampaignManagerDbContext context)
+        private CampaignManagerDbContext _context;
+        private DataMapper _mapper;
+
+        public EntityRepository(CampaignManagerDbContext context, DataMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         #region Entity
         public async Task<Entity> GetEntity(int id, bool header = false)
@@ -46,7 +49,7 @@ namespace DataAccess.Repositories
                     .ThenInclude(p => p.Revealeds);
                     //.Include(e => e.EntityGroups);
             }
-            return Mapper.Map(await retrieved.ToListAsync());
+            return _mapper.Map(await retrieved.ToListAsync());
         }
 
         public async Task<IEnumerable<Entity>> GetEntities(IEnumerable<int> ids, bool header = false)

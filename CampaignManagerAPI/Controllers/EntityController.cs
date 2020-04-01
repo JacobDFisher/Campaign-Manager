@@ -30,7 +30,7 @@ namespace API.Controllers
         public async Task<IEnumerable<Entity>> GetEntities([FromQuery] IEnumerable<int> ids)
         {
             IEnumerable<Lib.Models.Entity> entities;
-            if (ids != null)
+            if (ids != null && ids.Count() > 0)
             {
                 entities = await _EntityRepository.GetEntities(ids, true);
             }
@@ -45,10 +45,10 @@ namespace API.Controllers
         public async Task<IEnumerable<EntityHeader>> GetEntityHeaders([FromQuery] IEnumerable<int> ids)
         {
             IEnumerable<Lib.Models.Entity> entities;
-            if(ids != null) {
+            if(ids != null && ids.Count()>0) {
                 entities = await _EntityRepository.GetEntities(ids, true);
             }
-            else { 
+            else {
                 entities = await _EntityRepository.GetEntities(true);
             }
             return Mapper.MapHeader(entities);
