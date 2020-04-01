@@ -18,7 +18,7 @@ namespace API
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                //Revealed = Map(entity.Revealed),
+                Permissions = Map(entity.Permissions)
             };
         }
 
@@ -46,7 +46,7 @@ namespace API
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                //Revealed = Map(entity.Revealed),
+                Permissions = Map(entity.Permissions),
                 Details = Map(entity.Details),
                 Properties = Map(entity.Properties)
             };
@@ -54,6 +54,8 @@ namespace API
 
         private static IEnumerable<Models.Property> Map(IEnumerable<Lib.Models.Property> properties)
         {
+            if (properties == null)
+                return null;
             return from p in properties select Map(p);
         }
 
@@ -68,6 +70,8 @@ namespace API
 
         private static IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Detail> details)
         {
+            if (details == null)
+                return null;
             return from d in details select Map(d);
         }
 
@@ -75,9 +79,64 @@ namespace API
         {
             return new Models.Detail()
             {
-                //Author = d.Author,
                 Description = d.Description,
-               // Revealed = Map(d.Revealed)
+                Permissions = Map(d.Permissions)
+            };
+        }
+
+        private static Models.Permissions Map(Lib.Models.Permissions permissions)
+        {
+            if (permissions == null)
+                return null;
+            return new Models.Permissions()
+            {
+                Id = permissions.Id,
+                Author = Map(permissions.Author),
+                Perms = Map(permissions.Perms),
+                Revealed = Map(permissions.Revealed)
+            };
+        }
+
+        private static IEnumerable<Models.Permission> Map(IEnumerable<Lib.Models.Permission> perms)
+        {
+            if (perms == null)
+                return null;
+            return from perm in perms select Map(perm);
+        }
+
+        private static Models.Permission Map(Lib.Models.Permission perm)
+        {
+            if (perm == null)
+                return null;
+            return new Models.Permission()
+            {
+                Grantor = Map(perm.Grantor),
+                Grantee = Map(perm.Grantee),
+                PermissionType = perm.PermissionType
+            };
+        }
+
+        private static Models.Group Map(Lib.Models.Group group)
+        {
+            if (group == null)
+                return null;
+            return new Group()
+            {
+                Id = group.Id,
+                Name = group.Name,
+                MemberOf = group.MemberOf?.Select(g => g.Id)
+            };
+        }
+
+        private static Models.Identity Map(Lib.Models.Identity identity)
+        {
+            if (identity == null)
+                return null;
+            return new Identity()
+            {
+                Id = identity.Id,
+                Groups = identity.Groups?.Select(g => g.Id),
+                Name = identity.Name
             };
         }
     }

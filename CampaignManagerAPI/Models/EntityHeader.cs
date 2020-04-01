@@ -10,6 +10,6 @@ namespace API.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Revealed> Revealed { get; set; }
+        public Permissions Permissions { get; set; }
     }
 }

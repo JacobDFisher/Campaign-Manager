@@ -70,15 +70,16 @@ namespace DataAccess
                 {
                     if (detail.Name != null)
                     {
-                        ent.Properties.Append(new Lib.Models.Property()
+                        var test = new Lib.Models.Property()
                         {
                             Name = detail.Name,
                             Detail = Map(detail)
-                        });
+                        };
+                        ent.Properties = ent.Properties.Append(test);
                     }
                     else
                     {
-                        ent.Details.Append(Map(detail));
+                        ent.Details = ent.Details.Append(Map(detail));
                     }
                 }
             }
@@ -134,6 +135,7 @@ namespace DataAccess
             {
                 var newPerm = new Lib.Models.Permissions()
                 {
+                    Id = permissions.Id,
                     Author = (permissions.Author == null) ? new Lib.Models.Identity() { Id = permissions.AuthorId } : Map(permissions.Author),
                     Perms = Map(permissions.Perms),
                     Revealed = Map(permissions.Revealeds)

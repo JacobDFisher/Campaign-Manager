@@ -19,7 +19,6 @@ namespace DataAccess.Repositories
             _context = context;
             _mapper = mapper;
         }
-        #region Entity
         public async Task<Entity> GetEntity(int id, bool header = false)
         {
             await Task.Yield();
@@ -57,7 +56,6 @@ namespace DataAccess.Repositories
             await Task.Yield();
             throw new NotImplementedException();
         }
-        #endregion
 
     }
 }

@@ -7,6 +7,6 @@ namespace API.Models
     {
         public string Description { get; set; }
         public int Author { get; set; }
-        public IEnumerable<Revealed> Revealed { get; set; }
+        public Permissions Permissions { get; set; }
     }
 }

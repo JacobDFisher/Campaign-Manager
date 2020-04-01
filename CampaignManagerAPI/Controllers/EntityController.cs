@@ -32,11 +32,11 @@ namespace API.Controllers
             IEnumerable<Lib.Models.Entity> entities;
             if (ids != null && ids.Count() > 0)
             {
-                entities = await _EntityRepository.GetEntities(ids, true);
+                entities = await _EntityRepository.GetEntities(ids);
             }
             else
             {
-                entities = await _EntityRepository.GetEntities(true);
+                entities = await _EntityRepository.GetEntities();
             }
             return Mapper.Map(entities);
         }
