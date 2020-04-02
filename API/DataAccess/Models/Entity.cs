@@ -18,6 +18,13 @@ namespace DataAccess.Models
     }
     public class EntityConfiguration : IEntityTypeConfiguration<Entity>
     {
+        public static IEnumerable<Entity> entities = new List<Entity> {
+            new Entity() {
+                    Id = 1,
+                    Name = "Character 1",
+                    PermissionsId = 1
+                }
+        };
         public void Configure(EntityTypeBuilder<Entity> builder)
         {
             builder.HasKey(e => e.Id);
@@ -35,13 +42,7 @@ namespace DataAccess.Models
             builder.HasMany(e => e.Revealeds)
                 .WithOne(r => r.Source)
                 .HasForeignKey(r => r.SourceId);
-            builder.HasData(new Entity[]{
-                new Entity() {
-                    Id = 1,
-                    Name = "Character 1",
-                    PermissionsId = 1
-                }
-            });
+            builder.HasData(entities);
         }
     }
 }

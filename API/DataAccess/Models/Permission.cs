@@ -41,9 +41,16 @@ namespace DataAccess.Models
             {
                 new Permission()
                 {
-                    GrantorId = 3,
+                    GrantorId = 2,
                     GranteeId = 1,
                     PermissionsId = 1,
+                    PermissionType = PermissionType.Viewer
+                },
+                new Permission()
+                {
+                    GrantorId = 1,
+                    GranteeId = 4,
+                    PermissionsId = 2,
                     PermissionType = PermissionType.Viewer
                 }
             });

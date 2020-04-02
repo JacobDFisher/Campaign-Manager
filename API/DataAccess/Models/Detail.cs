@@ -42,6 +42,20 @@ namespace DataAccess.Models
                     Description = "Character 1",
                     EntityId = 1,
                     PermissionsId = 1
+                },
+                new Detail()
+                {
+                    Id = 2,
+                    Description = "Has a large family",
+                    EntityId = 1,
+                    PermissionsId = 1
+                },
+                new Detail()
+                {
+                    Id = 3,
+                    Description = "Part of a global conspiracy",
+                    EntityId = 1,
+                    PermissionsId = 2
                 }
             });
         }

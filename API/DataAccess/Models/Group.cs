@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Models
 {
@@ -20,6 +18,33 @@ namespace DataAccess.Models
     }
     public class GroupConfiguration : IEntityTypeConfiguration<Group>
     {
+        public static IEnumerable<Group> groups = new List<Group>() {
+            new Group()
+                {
+                    Id = 1,
+                    Name = "All"
+                },
+                new Group()
+                {
+                    Id = 2,
+                    Name = "Runner"
+                },
+                new Group()
+                {
+                    Id = 3,
+                    Name = "Players"
+                },
+                new Group()
+                {
+                    Id = 4,
+                    Name="Player 1"
+                },
+                new Group()
+                {
+                    Id = 5,
+                    Name="Player 2"
+                }
+        };
         public void Configure(EntityTypeBuilder<Group> builder)
         {
             builder.HasKey(g => g.Id);
@@ -42,14 +67,7 @@ namespace DataAccess.Models
             builder.HasMany(g => g.MemberEntities)
                 .WithOne(gj => gj.Group)
                 .HasForeignKey(gj => gj.GroupId);
-            builder.HasData(new Group[]
-            {
-                new Group()
-                {
-                    Id = 1,
-                    Name = "All"
-                }
-            });
+            builder.HasData(groups);
         }
     }
 }

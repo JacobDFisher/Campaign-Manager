@@ -17,6 +17,24 @@ namespace DataAccess.Models
     }
     public class IdentityConfiguration : IEntityTypeConfiguration<Identity>
     {
+        public static IEnumerable<Identity> identities = new List<Identity>()
+        {
+            new Identity()
+                {
+                    Id = 1,
+                    Name = "Runner"
+                },
+                new Identity()
+                {
+                    Id = 2,
+                    Name = "Player 1"
+                },
+                new Identity()
+                {
+                    Id = 3,
+                    Name = "Player 2"
+                }
+        };
         public void Configure(EntityTypeBuilder<Identity> builder)
         {
             builder.HasKey(i => i.Id);
@@ -30,14 +48,7 @@ namespace DataAccess.Models
             builder.HasMany(i => i.Authorships)
                 .WithOne(ps => ps.Author)
                 .HasForeignKey(ps => ps.AuthorId);
-            builder.HasData(new Identity[]
-            {
-                new Identity()
-                {
-                    Id = 3,
-                    Name = "Player 1"
-                }
-            });
+            builder.HasData(identities);
         }
     }
 }

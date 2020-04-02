@@ -39,6 +39,13 @@ namespace DataAccess
             return from perm in perms select Map(perm);
         }
 
+        internal IEnumerable<Lib.Models.Group> Map(IEnumerable<Models.Group> groups)
+        {
+            if (groups == null)
+                return null;
+            return from g in groups select Map(g);
+        }
+
         public Lib.Models.Detail Map(Models.Detail detail)
         {
             if (detail == null)

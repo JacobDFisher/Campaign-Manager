@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Entity> GetEntity([FromQuery] int id)
+        public async Task<Entity> GetEntity([FromRoute] int id)
         {
             Lib.Models.Entity entity;
             entity = await _EntityRepository.GetEntity(id, true);
@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Entity>> GetEntities([FromQuery] IEnumerable<int> ids)
+        public async Task<IEnumerable<Entity>> GetEntities([FromRoute] IEnumerable<int> ids)
         {
             IEnumerable<Lib.Models.Entity> entities;
             if (ids != null && ids.Count() > 0)
