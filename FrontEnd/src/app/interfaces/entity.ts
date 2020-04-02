@@ -1,12 +1,11 @@
 import { Detail } from './detail'
 import { Property } from './property';
-import { Revealed } from './revealed';
+import { PermissionHolder } from './permissionHolder';
 
 export interface Entity {
     id : number;
     name: string;
-    author: number;
-    revealed?: Revealed[];
+    permissions: PermissionHolder;
     properties: Property[];
     details: Detail[];
 }

@@ -72,7 +72,7 @@ namespace DataAccess.Models
         public GroupGroupConfiguration()
         {
             // Add all to "All"
-            groupData = groupData.Concat(from i in GroupConfiguration.groups.Select(g => g.Id) select new GroupJoin<Group>() { GroupId = 1, MemberId = i });
+            groupData = groupData.Concat(from i in GroupConfiguration.groups.Select(g => g.Id).Where(n => n!=1) select new GroupJoin<Group>() { GroupId = 1, MemberId = i });
         }
         public void Configure(EntityTypeBuilder<GroupJoin<Group>> builder)
         {

@@ -1,1 +1,1 @@
-<span>{{detail.description}} <strong>Author: </strong> {{detail.author}}<span *ngIf="detail.revealed.length>0"><strong> Revealed by: </strong> {{detail.revealed[0].source}}</span></span> 
+<span>{{detail.description}} <strong>Author: </strong> {{detail.permissions.author.name}}<span *ngIf="detail.permissions.perms.length>0"><strong> Revealed by: </strong> {{detail.permissions.perms[0].grantor.name}}</span></span> 

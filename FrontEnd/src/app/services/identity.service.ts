@@ -3,31 +3,35 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Identity } from '../interfaces/identity';
 import { IDENTITIES } from '../mock-data/mock-identity';
 import { GroupService } from './group.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Group } from '../interfaces/group';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IdentityService {
-
-  constructor(private groupService: GroupService) {
-    this.identity$ = new BehaviorSubject(IDENTITIES[0]);
-    this.identities$ = new BehaviorSubject(IDENTITIES);
-    groupService.getGroups(IDENTITIES[0].groups).subscribe(grps => this.groups$ = new BehaviorSubject(grps));
+  constructor(private groupService: GroupService, private httpClient: HttpClient) {
+    this.identity$ = new BehaviorSubject(null);
+    this.groups$ = new BehaviorSubject(null);
+    this.setIdentity(1);
   }
 
-  identities$: BehaviorSubject<Identity[]>;
+  endpoint = environment.endpoint+'api/identity/'
+
   identity$: BehaviorSubject<Identity>;
-  groups$: BehaviorSubject<number[]>;
+  groups$: BehaviorSubject<Group[]>;
 
   setIdentity(id: number): void{
-    let newIdentity = IDENTITIES.find(e => e.id==id);
+    this.httpClient.get<Identity>(this.endpoint+id).subscribe(newIdentity =>{
     this.identity$.next(newIdentity); 
-    this.groupService.getGroups(newIdentity.groups).subscribe(
+    this.groupService.getGroups(newIdentity.groups.map(g => g.id)).subscribe(
       groups => this.groups$.next(groups)
     );
+  });
   }
 
   getIdentities(): Observable<Identity[]>{
-    return of(IDENTITIES);
+    return this.httpClient.get<Identity[]>(this.endpoint);
   }
 }

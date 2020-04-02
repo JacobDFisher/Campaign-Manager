@@ -1,8 +1,8 @@
 import { Group } from './group';
-import { Source } from './source';
+import { Entity } from './entity';
 
 export interface Revealed { // 
-    destinationId: number; // obtainer of knowledge
+    group: Group; // obtainer of knowledge
     percentage: number; // amount of group who knows this
-    source: Source; // source of knowledge
+    source: Entity; // source of knowledge
 }

@@ -1,8 +1,7 @@
-import { Revealed } from './revealed';
+import { PermissionHolder } from './permissionHolder';
 
 export interface EntityHeader {
     id : number;
     name: string;
-    author: number;
-    revealed?: Revealed[];
+    permissions: PermissionHolder;
 }

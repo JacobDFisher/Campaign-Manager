@@ -11,19 +11,19 @@ export class IdentitySelectorComponent implements OnInit {
 
   identities: Identity[];
   identity: Identity;
-  groups: number[];
+  groups: string[];
 
   constructor(public identityService: IdentityService) { }
 
   ngOnInit(): void {
-    this.identityService.identities$.subscribe(ids => {
+    this.identityService.getIdentities().subscribe(ids => {
       this.identities = ids
     });
     this.identityService.identity$.subscribe(id => {
       this.identity = id;
     });
     this.identityService.groups$.subscribe(groups => {
-      this.groups = groups;
+      this.groups = groups?.map(g => g.name);
     });
   }
 

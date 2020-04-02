@@ -3,6 +3,8 @@
         <button (click)="selectIdentity(id.id)">{{id.name}}</button>
     </li>
 </ul>
+<div *ngIf="identity">
 <span><strong>Currently: </strong>{{identity.name}}</span>
 <br>
 <span><strong>Groups: </strong>{{groups}}</span>
+</div>

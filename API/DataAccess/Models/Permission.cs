@@ -52,6 +52,20 @@ namespace DataAccess.Models
                     GranteeId = 4,
                     PermissionsId = 2,
                     PermissionType = PermissionType.Viewer
+                },
+                new Permission()
+                {
+                    GrantorId = 3,
+                    GranteeId = 1,
+                    PermissionsId = 3,
+                    PermissionType = PermissionType.Viewer
+                },
+                new Permission()
+                {
+                    GrantorId = 3,
+                    GranteeId = 2,
+                    PermissionsId = 4,
+                    PermissionType = PermissionType.Viewer
                 }
             });
         }

@@ -56,6 +56,21 @@ namespace DataAccess.Models
                     Description = "Part of a global conspiracy",
                     EntityId = 1,
                     PermissionsId = 2
+                },
+                new Detail()
+                {
+                    Id = 4,
+                    Name = "name",
+                    Description = "Character 2",
+                    EntityId = 2,
+                    PermissionsId = 3
+                },
+                new Detail()
+                {
+                    Id = 5,
+                    Description = "Tall",
+                    EntityId = 2,
+                    PermissionsId = 4
                 }
             });
         }

@@ -140,7 +140,7 @@ namespace API
             {
                 Id = group.Id,
                 Name = group.Name,
-                MemberOf = group.MemberOf?.Select(g => g.Id)
+                MemberOf = Map(group.MemberOf)
             };
         }
 
@@ -151,7 +151,7 @@ namespace API
             return new Models.Identity()
             {
                 Id = identity.Id,
-                Groups = identity.Groups?.Select(g => g.Id),
+                Groups = Map(identity.Groups),
                 Name = identity.Name
             };
         }

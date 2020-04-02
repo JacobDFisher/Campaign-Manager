@@ -1,7 +1,6 @@
-import { Revealed } from './revealed';
+import { PermissionHolder } from './permissionHolder';
 
 export interface Detail{
     description: string;
-    author: number;
-    revealed: Revealed[];
+    permissions: PermissionHolder;
 }

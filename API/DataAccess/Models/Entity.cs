@@ -23,7 +23,13 @@ namespace DataAccess.Models
                     Id = 1,
                     Name = "Character 1",
                     PermissionsId = 1
-                }
+                },
+            new Entity()
+            {
+                Id = 2,
+                Name = "Character 2",
+                PermissionsId = 3
+            }
         };
         public void Configure(EntityTypeBuilder<Entity> builder)
         {

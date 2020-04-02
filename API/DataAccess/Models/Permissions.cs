@@ -52,6 +52,16 @@ namespace DataAccess.Models
                 {
                     Id = 2,
                     AuthorId = 1
+                },
+                new Permissions()
+                {
+                    Id = 3,
+                    AuthorId = 3
+                },
+                new Permissions()
+                {
+                    Id = 4,
+                    AuthorId = 3
                 }
             });
         }

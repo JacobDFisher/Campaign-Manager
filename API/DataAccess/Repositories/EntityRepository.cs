@@ -28,8 +28,10 @@ namespace DataAccess.Repositories
                 .ThenInclude(p => p.Author) // Entity Author
                 .Include(e => e.Permissions)
                 .ThenInclude(p => p.Perms)
+                .ThenInclude(p => p.Grantor)
                 .Include(e => e.Permissions)
-                .ThenInclude(p => p.Revealeds);
+                .ThenInclude(p => p.Revealeds)
+                .ThenInclude(r => r.Source);
         }
 
         private IQueryable<Models.Entity> GetBase()
@@ -41,9 +43,11 @@ namespace DataAccess.Repositories
                     .Include(e => e.Details)
                     .ThenInclude(d => d.Permissions)
                     .ThenInclude(p => p.Perms)
+                    .ThenInclude(p => p.Grantor)
                     .Include(e => e.Details)
                     .ThenInclude(d => d.Permissions)
-                    .ThenInclude(p => p.Revealeds);
+                    .ThenInclude(p => p.Revealeds)
+                    .ThenInclude(r => r.Source);
         }
 
         public async Task<Entity> GetEntity(int id, bool header = false)

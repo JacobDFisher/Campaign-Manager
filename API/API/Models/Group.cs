@@ -8,6 +8,6 @@ namespace API.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<int> MemberOf { get; set; }
+        public IEnumerable<Group> MemberOf { get; set; }
     }
 }

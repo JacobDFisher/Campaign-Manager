@@ -8,17 +8,17 @@ export const IDENTITIES: Identity[] = [
     {
         id: 1,
         name: "Runner",
-        groups: [1]
+        groups: [{id: 1}]
     },
     {
         id: 3,
         name: "Player 1",
-        groups: [3]
+        groups: [{id: 3}]
     },
     {
         id: 4,
         name: "Player 2",
-        groups: [4]
+        groups: [{id: 4}]
     },
     {
         name: "Spectator"

@@ -19,6 +19,13 @@ namespace API.Controllers
         {
             _repo = repo;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Group>>> GetGroups([FromQuery] IEnumerable<int> ids)
+        {
+            return Ok(Mapper.Map(await _repo.GetGroups(ids, true)));
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup([FromRoute] int id)
         {
@@ -33,7 +40,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}/all")]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups([FromRoute] int id)
+        public async Task<ActionResult<IEnumerable<Group>>> GetGroupsByGroup([FromRoute] int id)
         {
             return Ok(Mapper.Map(await _repo.GetGroups(new int[] { id }, true)));
         }
