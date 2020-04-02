@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
+using Lib.Exceptions;
 using Lib.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,22 @@ namespace API.Controllers
             _repo = repo;
         }
         [HttpGet("{id}")]
-        public async Task<Group> GetGroup([FromRoute] int id)
+        public async Task<ActionResult<Group>> GetGroup([FromRoute] int id)
         {
-            return Mapper.Map(await _repo.GetGroup(id));
+            try
+            {
+                return Ok(Mapper.Map(await _repo.GetGroup(id)));
+            } catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            
         }
 
         [HttpGet("{id}/all")]
-        public async Task<IEnumerable<Group>> GetGroups([FromRoute] int id)
+        public async Task<ActionResult<IEnumerable<Group>>> GetGroups([FromRoute] int id)
         {
-            return Mapper.Map(await _repo.GetGroups(new int[] { id }, true));
+            return Ok(Mapper.Map(await _repo.GetGroups(new int[] { id }, true)));
         }
     }
 }

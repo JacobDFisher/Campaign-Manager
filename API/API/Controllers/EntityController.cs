@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Lib.Exceptions;
 using Lib.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EntityController
+    public class EntityController : ControllerBase
     {
         IEntityRepository _EntityRepository;
         public EntityController(IEntityRepository entityRepository)
@@ -19,15 +20,35 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<Entity> GetEntity([FromRoute] int id)
+        public async Task<ActionResult<Entity>> GetEntity([FromRoute] int id)
         {
             Lib.Models.Entity entity;
-            entity = await _EntityRepository.GetEntity(id, true);
-            return Mapper.Map(entity);
+            try { 
+            entity = await _EntityRepository.GetEntity(id);
+            return Ok(Mapper.Map(entity));
+            } catch (NotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet("{id}/header")]
+        public async Task<ActionResult<Entity>> GetEntityHeader([FromRoute] int id)
+        {
+            Lib.Models.Entity entity;
+            try
+            {
+                entity = await _EntityRepository.GetEntity(id, true);
+                return Ok(Mapper.Map(entity));
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Entity>> GetEntities([FromRoute] IEnumerable<int> ids)
+        public async Task<ActionResult<IEnumerable<Entity>>> GetEntities([FromQuery] IEnumerable<int> ids)
         {
             IEnumerable<Lib.Models.Entity> entities;
             if (ids != null && ids.Count() > 0)
@@ -38,20 +59,20 @@ namespace API.Controllers
             {
                 entities = await _EntityRepository.GetEntities();
             }
-            return Mapper.Map(entities);
+            return Ok(Mapper.Map(entities));
         }
 
         [HttpGet("header")]
-        public async Task<IEnumerable<EntityHeader>> GetEntityHeaders([FromQuery] IEnumerable<int> ids)
+        public async Task<ActionResult<IEnumerable<EntityHeader>>> GetEntityHeaders([FromQuery] IEnumerable<int> ids)
         {
             IEnumerable<Lib.Models.Entity> entities;
             if(ids != null && ids.Count()>0) {
                 entities = await _EntityRepository.GetEntities(ids, true);
             }
             else {
-                entities = await _EntityRepository.GetEntities(true);
+                entities = await _EntityRepository.GetEntities(header: true);
             }
-            return Mapper.MapHeader(entities);
+            return Ok(Mapper.MapHeader(entities));
         }
 
     }

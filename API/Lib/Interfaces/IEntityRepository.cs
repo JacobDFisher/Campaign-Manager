@@ -10,7 +10,6 @@ namespace Lib.Interfaces
     public interface IEntityRepository
     {
         public Task<Entity> GetEntity(int id, bool header=false);
-        public Task<IEnumerable<Entity>> GetEntities(bool header=false);
-        public Task<IEnumerable<Entity>> GetEntities(IEnumerable<int> ids, bool header=false);
+        public Task<IEnumerable<Entity>> GetEntities(IEnumerable<int> ids = null, bool header=false);
     }
 }

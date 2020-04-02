@@ -23,7 +23,16 @@ namespace API
         }
 
         public static IEnumerable<Models.Revealed> Map(IEnumerable<Lib.Models.Revealed> revealed){
+            if (revealed == null)
+                return null;
             return from r in revealed select Map(r);
+        }
+
+        internal static IEnumerable<Models.Identity> Map(IEnumerable<Lib.Models.Identity> identities)
+        {
+            if (identities == null)
+                return null;
+            return from i in identities select Map(i);
         }
 
         public static IEnumerable<Models.Group> Map(IEnumerable<Lib.Models.Group> groups)

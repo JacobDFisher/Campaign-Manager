@@ -46,6 +46,7 @@ namespace API
 
             services.AddScoped<IEntityRepository, EntityRepository>();
             services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IIdentityRepository, IdentityRepository>();
             services.AddScoped<DataMapper, DataMapper>();
 
             services.AddSwaggerGen(c =>

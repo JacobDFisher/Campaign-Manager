@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Lib.Exceptions;
 
 namespace DataAccess.Repositories
 {
@@ -19,25 +20,22 @@ namespace DataAccess.Repositories
             _context = context;
             _mapper = mapper;
         }
-        public async Task<Entity> GetEntity(int id, bool header = false)
-        {
-            await Task.Yield();
-            throw new NotImplementedException();
-        }
 
-        public async Task<IEnumerable<Entity>> GetEntities(bool header = false)
+        private IQueryable<Models.Entity> GetBaseForHeader()
         {
-            var retrieved = _context.Entities
+            return _context.Entities
                 .Include(e => e.Permissions)
                 .ThenInclude(p => p.Author) // Entity Author
                 .Include(e => e.Permissions)
                 .ThenInclude(p => p.Perms)
                 .Include(e => e.Permissions)
-                .ThenInclude(p => p.Revealeds)
-                .AsNoTracking();
-            if (!header)
-            {
-                retrieved = retrieved.Include(e => e.Details)
+                .ThenInclude(p => p.Revealeds);
+        }
+
+        private IQueryable<Models.Entity> GetBase()
+        {
+            return GetBaseForHeader()
+                .Include(e => e.Details)
                     .ThenInclude(d => d.Permissions)
                     .ThenInclude(p => p.Author) // Detail Author
                     .Include(e => e.Details)
@@ -46,15 +44,35 @@ namespace DataAccess.Repositories
                     .Include(e => e.Details)
                     .ThenInclude(d => d.Permissions)
                     .ThenInclude(p => p.Revealeds);
-                    //.Include(e => e.EntityGroups);
-            }
-            return _mapper.Map(await retrieved.ToListAsync());
         }
 
-        public async Task<IEnumerable<Entity>> GetEntities(IEnumerable<int> ids, bool header = false)
+        public async Task<Entity> GetEntity(int id, bool header = false)
         {
-            await Task.Yield();
-            throw new NotImplementedException();
+            IQueryable<Models.Entity> entities;
+            if (header)
+                entities = GetBaseForHeader().AsNoTracking();
+            else
+                entities = GetBase().AsNoTracking();
+            try
+            {
+                return _mapper.Map(await entities.SingleAsync(e => e.Id == id));
+            } catch (Exception e)
+            {
+                throw new NotFoundException("Entity not found", e);
+            }
+        }
+
+        public async Task<IEnumerable<Entity>> GetEntities(IEnumerable<int> ids = null, bool header = false)
+        {
+            IQueryable<Models.Entity> entities;
+            if (header)
+                entities = GetBaseForHeader().AsNoTracking();
+            else
+                entities = GetBase().AsNoTracking();
+            if (ids != null)
+                return _mapper.Map(await entities.Where(e => ids.Contains(e.Id)).ToListAsync());
+            else
+                return _mapper.Map(await entities.ToListAsync());
         }
 
     }

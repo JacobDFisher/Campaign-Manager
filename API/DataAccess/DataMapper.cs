@@ -32,6 +32,13 @@ namespace DataAccess
             return from rev in revealed select Map(rev);
         }
 
+        internal IEnumerable<Lib.Models.Identity> Map(IEnumerable<Models.Identity> identities)
+        {
+            if (identities == null)
+                return null;
+            return from identity in identities select Map(identity);
+        }
+
         public IEnumerable<Lib.Models.Permission> Map(IEnumerable<Models.Permission> perms)
         {
             if (perms == null)

@@ -1,4 +1,5 @@
-﻿using Lib.Interfaces;
+﻿using Lib.Exceptions;
+using Lib.Interfaces;
 using Lib.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,9 +27,9 @@ namespace DataAccess.Repositories
                 .Include(g => g.MemberOf);
             try {
                  retVal = await groups.SingleAsync(g => g.Id == id);
-            } catch
+            } catch(Exception e)
             {
-                retVal = null;
+                throw new NotFoundException("Group not found", e);
             }
             return _mapper.Map(retVal);
         }
@@ -43,7 +44,7 @@ namespace DataAccess.Repositories
         private async Task<IEnumerable<Group>> GetGroupsAndParents(IEnumerable<int> ids)
         {
             IEnumerable<Models.Group> groups = await _context.Groups.Where(g => ids.Contains(g.Id)).Include(g=>g.MemberOf).ToListAsync();
-            HashSet<int> seenIds = new HashSet<int>();
+            HashSet<int> seenIds = new HashSet<int>(ids);
             IEnumerable<int> newIds = new HashSet<int>(groups.SelectMany(g => g.MemberOf.Select(g => g.GroupId)).Distinct().Except(seenIds));
             while (newIds != null && newIds.Count() > 0)
             {
