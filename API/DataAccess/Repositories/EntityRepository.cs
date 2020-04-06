@@ -74,9 +74,14 @@ namespace DataAccess.Repositories
             else
                 entities = GetBase().AsNoTracking();
             if (ids != null)
-                return _mapper.Map(await entities.Where(e => ids.Contains(e.Id)).ToListAsync());
+                return SortByIds(ids, _mapper.Map(await entities.Where(e => ids.Contains(e.Id)).ToListAsync()));
             else
                 return _mapper.Map(await entities.ToListAsync());
+        }
+
+        private IEnumerable<Entity> SortByIds(IEnumerable<int> ids, IEnumerable<Entity> entities)
+        {
+            return (from i in ids select entities.SingleOrDefault(e => e.Id == i)).Where(e => e != null);
         }
 
     }
