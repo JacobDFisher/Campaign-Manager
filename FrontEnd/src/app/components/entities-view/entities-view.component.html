@@ -1,5 +1,5 @@
-<ul>
-    <li *ngFor="let entity of entities">
-        <app-entity-view [entity]="entity"></app-entity-view><strong (click)="close(entity.id)">X</strong>
-    </li>
-</ul>
+<div *ngFor="let entity of entities">
+    <div cdkDrag (cdkDragEnded)="logEvent($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="positions[entity.id]">
+    <app-entity-card (close)="close(entity.id)" [entity]="entity"></app-entity-card>
+</div>
+</div>

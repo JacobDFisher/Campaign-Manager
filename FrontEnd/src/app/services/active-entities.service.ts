@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, merge } from 'rxjs';
 import { Entity } from '../interfaces/entity';
 import { IdentityService } from './identity.service';
-import { EntityService } from './entity-service.service';
+import { EntityService } from './entity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,6 @@ export class ActiveEntitiesService {
     merge(this.identityService.identity$, this.identityService.groups$).subscribe(() => {
       this.entityService.getEntities(this.entityIds$.value).subscribe(entities => this.entities$.next(entities.map(e => this.filterEntity(e)).filter(e => e)));
     });
-  }
-
-  clear(){
-    this.entities$.next([]);
-    this.entityIds$.next([]);
   }
 
   addEntity(entity: Entity){

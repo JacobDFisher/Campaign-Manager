@@ -1,0 +1,6 @@
+<mat-card class="entityCard">
+    <strong (click)="close.emit()">X</strong>
+    <app-entity-view [entity]="entity" *ngIf="!editMode"></app-entity-view>
+    <app-entity-edit [entity]="entity" *ngIf="editMode"></app-entity-edit>
+    <button (click)="toggleEditMode()"><span *ngIf="!editMode">Edit Entity</span><span *ngIf="editMode">Save</span></button>
+</mat-card>

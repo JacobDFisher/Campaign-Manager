@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Entity } from 'src/app/interfaces/entity';
-import { EntityService } from 'src/app/services/entity-service.service';
+import { EntityService } from 'src/app/services/entity.service';
 import { IdentityService } from 'src/app/services/identity.service';
 
 @Component({

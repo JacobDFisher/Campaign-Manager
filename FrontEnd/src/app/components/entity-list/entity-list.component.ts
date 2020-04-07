@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntityHeader } from 'src/app/interfaces/entity-header';
-import { EntityService } from 'src/app/services/entity-service.service';
+import { EntityService } from 'src/app/services/entity.service';
 import { IdentityService } from 'src/app/services/identity.service';
 import { merge } from 'rxjs';
 import { ActiveEntitiesService } from 'src/app/services/active-entities.service';

@@ -12,6 +12,11 @@ import { PropertyViewComponent } from './components/property-view/property-view.
 import { DetailsViewComponent } from './components/details-view/details-view.component';
 import { EntitiesViewComponent } from './components/entities-view/entities-view.component';
 import { EntityListComponent } from './components/entity-list/entity-list.component';
+import { EntityCardComponent } from './components/entity-card/entity-card.component';
+import { EntityEditComponent } from './components/entity-edit/entity-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -23,12 +28,17 @@ import { EntityListComponent } from './components/entity-list/entity-list.compon
     PropertyViewComponent,
     DetailsViewComponent,
     EntitiesViewComponent,
-    EntityListComponent
+    EntityListComponent,
+    EntityCardComponent,
+    EntityEditComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
