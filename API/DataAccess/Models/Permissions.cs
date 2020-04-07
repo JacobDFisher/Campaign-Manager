@@ -45,23 +45,23 @@ namespace DataAccess.Models
             {
                 new Permissions()
                 {
-                    Id = 1,
-                    AuthorId = 2
+                    Id = -1,
+                    AuthorId = -2
                 },
                 new Permissions()
                 {
-                    Id = 2,
-                    AuthorId = 1
+                    Id = -2,
+                    AuthorId = -1
                 },
                 new Permissions()
                 {
-                    Id = 3,
-                    AuthorId = 3
+                    Id = -3,
+                    AuthorId = -3
                 },
                 new Permissions()
                 {
-                    Id = 4,
-                    AuthorId = 3
+                    Id = -4,
+                    AuthorId = -3
                 }
             });
         }

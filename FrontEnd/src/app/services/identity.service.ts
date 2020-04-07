@@ -14,7 +14,7 @@ export class IdentityService {
   constructor(private groupService: GroupService, private httpClient: HttpClient) {
     this.identity$ = new BehaviorSubject(null);
     this.groups$ = new BehaviorSubject(null);
-    this.setIdentity(1);
+    this.setIdentity(-1);
   }
 
   endpoint = environment.endpoint+'api/identity/'

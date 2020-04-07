@@ -37,40 +37,40 @@ namespace DataAccess.Models
             {
                 new Detail()
                 {
-                    Id = 1,
+                    Id = -1,
                     Name = "name",
                     Description = "Character 1",
-                    EntityId = 1,
-                    PermissionsId = 1
+                    EntityId = -1,
+                    PermissionsId = -1
                 },
                 new Detail()
                 {
-                    Id = 2,
+                    Id = -2,
                     Description = "Has a large family",
-                    EntityId = 1,
-                    PermissionsId = 1
+                    EntityId = -1,
+                    PermissionsId = -1
                 },
                 new Detail()
                 {
-                    Id = 3,
+                    Id = -3,
                     Description = "Part of a global conspiracy",
-                    EntityId = 1,
-                    PermissionsId = 2
+                    EntityId = -1,
+                    PermissionsId = -2
                 },
                 new Detail()
                 {
-                    Id = 4,
+                    Id = -4,
                     Name = "name",
                     Description = "Character 2",
-                    EntityId = 2,
-                    PermissionsId = 3
+                    EntityId = -2,
+                    PermissionsId = -3
                 },
                 new Detail()
                 {
-                    Id = 5,
+                    Id = -5,
                     Description = "Tall",
-                    EntityId = 2,
-                    PermissionsId = 4
+                    EntityId = -2,
+                    PermissionsId = -4
                 }
             });
         }

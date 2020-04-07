@@ -84,5 +84,13 @@ namespace DataAccess.Repositories
             return (from i in ids select entities.SingleOrDefault(e => e.Id == i)).Where(e => e != null);
         }
 
+        public async Task<Entity> AddEntity(Entity entity)
+        {
+            Models.Entity storing = _mapper.Map(entity);
+            _context.Entities.Add(storing);
+            await _context.SaveChangesAsync();
+            return _mapper.Map(storing);
+        }
+
     }
 }

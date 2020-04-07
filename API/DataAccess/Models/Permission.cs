@@ -41,30 +41,30 @@ namespace DataAccess.Models
             {
                 new Permission()
                 {
-                    GrantorId = 2,
-                    GranteeId = 1,
-                    PermissionsId = 1,
+                    GrantorId = -2,
+                    GranteeId = -1,
+                    PermissionsId = -1,
                     PermissionType = PermissionType.Viewer
                 },
                 new Permission()
                 {
-                    GrantorId = 1,
-                    GranteeId = 4,
-                    PermissionsId = 2,
+                    GrantorId = -1,
+                    GranteeId = -4,
+                    PermissionsId = -2,
                     PermissionType = PermissionType.Viewer
                 },
                 new Permission()
                 {
-                    GrantorId = 3,
-                    GranteeId = 1,
-                    PermissionsId = 3,
+                    GrantorId = -3,
+                    GranteeId = -1,
+                    PermissionsId = -3,
                     PermissionType = PermissionType.Viewer
                 },
                 new Permission()
                 {
-                    GrantorId = 3,
-                    GranteeId = 2,
-                    PermissionsId = 4,
+                    GrantorId = -3,
+                    GranteeId = -2,
+                    PermissionsId = -4,
                     PermissionType = PermissionType.Viewer
                 }
             });

@@ -16,7 +16,7 @@ export class ActiveEntitiesService {
     this.entities$ = new BehaviorSubject(<Entity[]> []);
     this.entityIds$ = new BehaviorSubject(<number[]> []);
     merge(this.identityService.identity$, this.identityService.groups$).subscribe(() => {
-      this.entityService.getEntities(this.entityIds$.value).subscribe(entities => this.entities$.next(entities.map(e => this.filterEntity(e))));
+      this.entityService.getEntities(this.entityIds$.value).subscribe(entities => this.entities$.next(entities.map(e => this.filterEntity(e)).filter(e => e)));
     });
   }
 

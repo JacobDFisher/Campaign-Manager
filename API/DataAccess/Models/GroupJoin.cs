@@ -21,24 +21,24 @@ namespace DataAccess.Models
         {
             new GroupJoin<Identity>()
                 {
-                    GroupId = 2,
-                    MemberId = 1
+                    GroupId = -2,
+                    MemberId = -1
                 },
                 new GroupJoin<Identity>()
                 {
-                    GroupId = 4,
-                    MemberId = 2
+                    GroupId = -4,
+                    MemberId = -2
                 },
                 new GroupJoin<Identity>()
                 {
-                    GroupId = 5,
-                    MemberId = 3
+                    GroupId = -5,
+                    MemberId = -3
                 }
         };
         public GroupIdentityConfiguration()
         {
             // Add all to "All"
-            identityData = identityData.Concat(from i in IdentityConfiguration.identities.Select(i => i.Id) select new GroupJoin<Identity>() { GroupId = 1, MemberId = i });
+            identityData = identityData.Concat(from i in IdentityConfiguration.identities.Select(i => i.Id) select new GroupJoin<Identity>() { GroupId = -1, MemberId = i });
         }
         public void Configure(EntityTypeBuilder<GroupJoin<Identity>> builder)
         {
@@ -60,19 +60,19 @@ namespace DataAccess.Models
         {
             new GroupJoin<Group>()
                 {
-                    GroupId = 3,
-                    MemberId = 4
+                    GroupId = -3,
+                    MemberId = -4
                 },
                 new GroupJoin<Group>()
                 {
-                    GroupId = 3,
-                    MemberId = 5
+                    GroupId = -3,
+                    MemberId = -5
                 }
         };
         public GroupGroupConfiguration()
         {
             // Add all to "All"
-            groupData = groupData.Concat(from i in GroupConfiguration.groups.Select(g => g.Id).Where(n => n!=1) select new GroupJoin<Group>() { GroupId = 1, MemberId = i });
+            groupData = groupData.Concat(from i in GroupConfiguration.groups.Select(g => g.Id).Where(n => n!=-1) select new GroupJoin<Group>() { GroupId = -1, MemberId = i });
         }
         public void Configure(EntityTypeBuilder<GroupJoin<Group>> builder)
         {
@@ -94,7 +94,7 @@ namespace DataAccess.Models
         public GroupEntityConfiguration()
         {
             // Add all to "All"
-            entityData = entityData.Concat(from i in EntityConfiguration.entities.Select(e => e.Id) select new GroupJoin<Entity>() { GroupId = 1, MemberId = i });
+            entityData = entityData.Concat(from i in EntityConfiguration.entities.Select(e => e.Id) select new GroupJoin<Entity>() { GroupId = -1, MemberId = i });
         }
         public void Configure(EntityTypeBuilder<GroupJoin<Entity>> builder)
         {

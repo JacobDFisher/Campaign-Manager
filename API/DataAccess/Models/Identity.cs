@@ -21,17 +21,17 @@ namespace DataAccess.Models
         {
             new Identity()
                 {
-                    Id = 1,
+                    Id = -1,
                     Name = "Runner"
                 },
                 new Identity()
                 {
-                    Id = 2,
+                    Id = -2,
                     Name = "Player 1"
                 },
                 new Identity()
                 {
-                    Id = 3,
+                    Id = -3,
                     Name = "Player 2"
                 }
         };

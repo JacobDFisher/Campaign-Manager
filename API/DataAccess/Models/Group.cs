@@ -21,27 +21,27 @@ namespace DataAccess.Models
         public static IEnumerable<Group> groups = new List<Group>() {
             new Group()
                 {
-                    Id = 1,
+                    Id = -1,
                     Name = "All"
                 },
                 new Group()
                 {
-                    Id = 2,
+                    Id = -2,
                     Name = "Runner"
                 },
                 new Group()
                 {
-                    Id = 3,
+                    Id = -3,
                     Name = "Players"
                 },
                 new Group()
                 {
-                    Id = 4,
+                    Id = -4,
                     Name="Player 1"
                 },
                 new Group()
                 {
-                    Id = 5,
+                    Id = -5,
                     Name="Player 2"
                 }
         };

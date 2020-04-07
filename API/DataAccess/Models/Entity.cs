@@ -20,15 +20,15 @@ namespace DataAccess.Models
     {
         public static IEnumerable<Entity> entities = new List<Entity> {
             new Entity() {
-                    Id = 1,
+                    Id = -1,
                     Name = "Character 1",
-                    PermissionsId = 1
+                    PermissionsId = -1
                 },
             new Entity()
             {
-                Id = 2,
+                Id = -2,
                 Name = "Character 2",
-                PermissionsId = 3
+                PermissionsId = -3
             }
         };
         public void Configure(EntityTypeBuilder<Entity> builder)

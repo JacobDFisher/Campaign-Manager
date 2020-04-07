@@ -222,8 +222,9 @@ namespace DataAccess
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Permissions = Map(entity.Permissions),
-                Details = Map(entity.Details).Concat(Map(entity.Properties)),
+                PermissionsId = (int) entity.Permissions?.Id,
+                //Permissions = Map(entity.Permissions),
+                Details = Map(entity.Details).Concat(Map(entity.Properties)).ToList(),
                 EntityGroups = Map<Models.Entity>(entity.Groups)
             };
         }
@@ -234,6 +235,7 @@ namespace DataAccess
                 return null;
             return new Models.Permissions()
             {
+                Id = permissions.Id,
                 Author = Map(permissions.Author),
                 AuthorId = (int)permissions.Author?.Id,
                 Perms = Map(permissions.Perms),
@@ -243,6 +245,8 @@ namespace DataAccess
 
         private Models.Identity Map(Lib.Models.Identity identity)
         {
+            if (identity == null)
+                return null;
             return new Models.Identity()
             {
                 Id = identity.Id
@@ -262,9 +266,9 @@ namespace DataAccess
                 Id = detail.Id,
                 Name = null,
                 Description = detail.Description,
-                Entity = Map(detail.Entity),
-                EntityId = (int)detail.Entity?.Id,
-                Permissions = Map(detail.Permissions),
+                //Entity = Map(detail.Entity),
+                //EntityId = (int)detail.Entity?.Id,
+                //Permissions = Map(detail.Permissions),
                 PermissionsId = (int)detail.Permissions?.Id
             };
         }

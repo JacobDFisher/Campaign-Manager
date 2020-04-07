@@ -19,6 +19,8 @@ namespace API.Controllers
             _EntityRepository = entityRepository;
         }
 
+        #region GET
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Entity>> GetEntity([FromRoute] int id)
         {
@@ -73,6 +75,15 @@ namespace API.Controllers
                 entities = await _EntityRepository.GetEntities(header: true);
             }
             return Ok(Mapper.MapHeader(entities));
+        }
+
+        #endregion
+
+        [HttpPost]
+        public async Task<ActionResult> PostEntity([FromBody] Entity entity)
+        {
+            var e = await _EntityRepository.AddEntity(Mapper.Map(entity));
+            return CreatedAtAction("GetEntity", new { id = e.Id }, e);
         }
 
     }

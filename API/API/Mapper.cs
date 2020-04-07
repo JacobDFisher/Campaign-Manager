@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -149,6 +150,138 @@ namespace API
             if (identity == null)
                 return null;
             return new Models.Identity()
+            {
+                Id = identity.Id,
+                Groups = Map(identity.Groups),
+                Name = identity.Name
+            };
+        }
+
+        public static Lib.Models.Entity Map(Models.Entity entity)
+        {
+            if (entity == null)
+                return null;
+            return new Lib.Models.Entity()
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Permissions = Map(entity.Permissions),
+                Details = Map(entity.Details),
+                Properties = Map(entity.Properties)
+            };
+        }
+
+        public static IEnumerable<Lib.Models.Property> Map(IEnumerable<Models.Property> properties)
+        {
+            if (properties == null)
+                return null;
+            return from property in properties select Map(property);
+        }
+
+        private static Lib.Models.Property Map(Models.Property property)
+        {
+            if (property == null)
+                return null;
+            return new Lib.Models.Property()
+            {
+                Name = property.Name,
+                Detail = Map(property.Detail)
+            };
+        }
+
+        private static Lib.Models.Detail Map(Models.Detail detail)
+        {
+            if (detail == null)
+                return null;
+            return new Lib.Models.Detail()
+            {
+                Description = detail.Description,
+                Permissions = Map(detail.Permissions)
+            };
+        }
+
+        private static IEnumerable<Lib.Models.Detail> Map(IEnumerable<Models.Detail> details)
+        {
+            if (details == null)
+                return null;
+            return from detail in details select Map(detail);
+        }
+
+        public static Lib.Models.Permissions Map(Models.Permissions permissions)
+        {
+            if (permissions == null)
+                return null;
+            return new Lib.Models.Permissions()
+            {
+                Id = permissions.Id,
+                Author = Map(permissions.Author),
+                Perms = Map(permissions.Perms),
+                Revealed = Map(permissions.Revealed)
+            };
+        }
+
+        private static IEnumerable<Lib.Models.Revealed> Map(IEnumerable<Models.Revealed> revealed)
+        {
+            if (revealed == null)
+                return null;
+            return from rev in revealed select Map(rev);
+        }
+
+        private static Lib.Models.Revealed Map(Models.Revealed rev)
+        {
+            if (rev == null)
+                return null;
+            return new Lib.Models.Revealed()
+            {
+                Source = Map(rev.Source),
+                Group = Map(rev.Group),
+                Percentage = rev.Percentage
+            };
+        }
+
+        private static Lib.Models.Group Map(Models.Group group)
+        {
+            if (group == null)
+                return null;
+            return new Lib.Models.Group()
+            {
+                Id = group.Id,
+                Name = group.Name,
+                MemberOf = Map(group.MemberOf)
+            };
+        }
+
+        private static IEnumerable<Lib.Models.Group> Map(IEnumerable<Models.Group> groups)
+        {
+            if (groups == null)
+                return null;
+            return from g in groups select Map(g);
+        }
+
+        private static IEnumerable<Lib.Models.Permission> Map(IEnumerable<Models.Permission> perms)
+        {
+            if (perms == null)
+                return null;
+            return from perm in perms select Map(perm);
+        }
+
+        private static Lib.Models.Permission Map(Permission perm)
+        {
+            if (perm == null)
+                return null;
+            return new Lib.Models.Permission()
+            {
+                Grantee = Map(perm.Grantee),
+                Grantor = Map(perm.Grantor),
+                PermissionType = perm.PermissionType
+            };
+        }
+
+        private static Lib.Models.Identity Map(Models.Identity identity)
+        {
+            if (identity == null)
+                return null;
+            return new Lib.Models.Identity()
             {
                 Id = identity.Id,
                 Groups = Map(identity.Groups),
