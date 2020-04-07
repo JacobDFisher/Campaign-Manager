@@ -12,8 +12,8 @@ namespace DataAccess.Repositories
 {
     public class EntityRepository : IEntityRepository
     {
-        private CampaignManagerDbContext _context;
-        private DataMapper _mapper;
+        private readonly CampaignManagerDbContext _context;
+        private readonly DataMapper _mapper;
 
         public EntityRepository(CampaignManagerDbContext context, DataMapper mapper)
         {
@@ -92,5 +92,54 @@ namespace DataAccess.Repositories
             return _mapper.Map(storing);
         }
 
+        public async Task UpdateEntity(Entity entity)
+        {
+            try {
+                Models.Entity dbEntity = await GetBase().Where(e => e.Id == entity.Id).SingleAsync();
+                Models.Entity mapped = _mapper.Map(entity);
+                dbEntity.Name = mapped.Name;
+                dbEntity.PermissionsId = mapped.PermissionsId;
+                dbEntity.Details = mapped.Details;
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new NotFoundException("Entity not found", e);
+            }
+           
+        }
+
+        public async Task PatchEntity(Entity entity)
+        {
+            try
+            {
+                Models.Entity dbEntity = await GetBase().Where(e => e.Id == entity.Id).SingleAsync();
+                if (entity.Name != null)
+                    dbEntity.Name = entity.Name;
+                if (entity.Permissions != null && entity.Permissions.Id != 0)
+                    dbEntity.PermissionsId = (int)entity.Permissions?.Id;
+                if (entity.Details != null && entity.Details.Count() > 0)
+                    dbEntity.Details = dbEntity.Details.Concat(_mapper.Map(entity.Details)).ToList();
+                if (entity.Properties != null && entity.Properties.Count() > 0)
+                    dbEntity.Details = dbEntity.Details.Concat(_mapper.Map(entity.Properties)).ToList();
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new NotFoundException("Entity not found", e);
+            }
+        }
+
+        public async Task DeleteEntity(int id)
+        {
+            try { 
+            _context.Entities.Remove(await _context.Entities.Where(e => e.Id == id).SingleAsync());
+            await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new NotFoundException("Entity not found", e);
+            }
+        }
     }
 }

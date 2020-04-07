@@ -48,7 +48,6 @@ export class ActiveEntitiesService {
   }
 
   filterEntity(entity: Entity): Entity {
-    debugger;
     let groups = this.identityService.groups$.getValue().map(g => g.id);
     let identity = this.identityService.identity$.getValue().id;
     if (entity.permissions.author.id == identity || [...entity.permissions.perms.map(p => p.grantee.id), ...entity.permissions.revealed.map(r => r.group.id)].filter(x => groups.includes(x)).length > 0) {

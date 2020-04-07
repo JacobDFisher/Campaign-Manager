@@ -79,12 +79,56 @@ namespace API.Controllers
 
         #endregion
 
+        #region POST
         [HttpPost]
         public async Task<ActionResult> PostEntity([FromBody] Entity entity)
         {
             var e = await _EntityRepository.AddEntity(Mapper.Map(entity));
             return CreatedAtAction("GetEntity", new { id = e.Id }, e);
         }
+        #endregion
 
+        #region PUT
+        [HttpPut]
+        public async Task<ActionResult> PutEntity([FromBody] Entity entity)
+        {
+            try
+            {
+                await _EntityRepository.UpdateEntity(Mapper.Map(entity));
+            } catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        #endregion
+
+        #region PATCH
+        [HttpPatch]
+        public async Task<ActionResult> PatchEntity([FromBody] Entity entity)
+        {
+            try { 
+            await _EntityRepository.PatchEntity(Mapper.Map(entity));
+            } catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        #endregion
+
+        #region DELETE
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteEntity([FromRoute] int id)
+        {
+            try { 
+            await _EntityRepository.DeleteEntity(id);
+            } catch (NotFoundException)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+        #endregion
     }
 }

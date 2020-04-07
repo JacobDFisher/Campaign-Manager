@@ -10,7 +10,7 @@ namespace DataAccess
 {
     public class DataMapper
     {
-        private Dictionary<int, Lib.Models.Permissions> mappedPermissions;
+        public Dictionary<int, Lib.Models.Permissions> mappedPermissions;
 
         public DataMapper()
         {
@@ -179,35 +179,35 @@ namespace DataAccess
             return from entity in entities select Map(entity);
         }
 
-        private IEnumerable<Models.Revealed> Map(IEnumerable<Lib.Models.Revealed> revealed)
+        public IEnumerable<Models.Revealed> Map(IEnumerable<Lib.Models.Revealed> revealed)
         {
             if (revealed == null)
                 return null;
             return from rev in revealed select Map(rev);
         }
 
-        private IEnumerable<Models.Permission> Map(IEnumerable<Lib.Models.Permission> perms)
+        public IEnumerable<Models.Permission> Map(IEnumerable<Lib.Models.Permission> perms)
         {
             if (perms == null)
                 return null;
             return from perm in perms select Map(perm);
         }
 
-        private IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Property> properties)
+        public IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Property> properties)
         {
             if (properties == null)
                 return null;
             return from prop in properties select Map(prop);
         }
 
-        private IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Detail> details)
+        public IEnumerable<Models.Detail> Map(IEnumerable<Lib.Models.Detail> details)
         {
             if (details == null)
                 return null;
             return from det in details select Map(det);
         }
 
-        private IEnumerable<GroupJoin<T>> Map<T>(IEnumerable<Lib.Models.Group> groups)
+        public IEnumerable<GroupJoin<T>> Map<T>(IEnumerable<Lib.Models.Group> groups)
         {
             if (groups == null)
                 return null;
@@ -243,7 +243,7 @@ namespace DataAccess
             };
         }
 
-        private Models.Identity Map(Lib.Models.Identity identity)
+        public Models.Identity Map(Lib.Models.Identity identity)
         {
             if (identity == null)
                 return null;
@@ -252,14 +252,14 @@ namespace DataAccess
                 Id = identity.Id
             };
         }
-        private Models.Detail Map(Property property)
+        public Models.Detail Map(Property property)
         {
             var newDetail = Map(property.Detail);
             newDetail.Name = property.Name;
             return newDetail;
         }
 
-        private Models.Detail Map(Lib.Models.Detail detail)
+        public Models.Detail Map(Lib.Models.Detail detail)
         {
             return new Models.Detail()
             {
@@ -272,7 +272,7 @@ namespace DataAccess
                 PermissionsId = (int)detail.Permissions?.Id
             };
         }
-        private Models.Revealed Map(Lib.Models.Revealed rev)
+        public Models.Revealed Map(Lib.Models.Revealed rev)
         {
             if (rev == null)
                 return null;
@@ -285,7 +285,7 @@ namespace DataAccess
                 GroupId = (int)rev.Group?.Id
             };
         }
-        private Models.Permission Map(Lib.Models.Permission perm)
+        public Models.Permission Map(Lib.Models.Permission perm)
         {
             if (perm == null)
                 return null;
@@ -299,7 +299,7 @@ namespace DataAccess
             };
         }
 
-        private GroupJoin<T> Map<T>(Lib.Models.Group g)
+        public GroupJoin<T> Map<T>(Lib.Models.Group g)
         {
             if (g == null)
                 return null;
@@ -310,7 +310,7 @@ namespace DataAccess
             };
         }
 
-        private Models.Group Map(Lib.Models.Group g)
+        public Models.Group Map(Lib.Models.Group g)
         {
             if (g == null)
                 return null;
