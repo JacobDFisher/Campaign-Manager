@@ -35,10 +35,21 @@ export class ActiveEntitiesService {
     let entities = this.entities$.value;
     let entIds = this.entityIds$.value;
     if (entities.filter(e => e?.id == id).length > 0) {
-      this.entities$.next(entities.filter(e => e.id != id))
+      this.entities$.next(entities.filter(e => e.id != id));
     }
     if (entIds.includes(id)) {
-      this.entityIds$.next(entIds.filter(e => e != id))
+      this.entityIds$.next(entIds.filter(e => e != id));
+    }
+  }
+
+  moveToFront(id: number){
+    let entities = this.entities$.value;
+    let entIds = this.entityIds$.value;
+    if (entities.filter(e => e?.id == id).length > 0) {
+      this.entities$.next(entities.filter(e => e.id != id).concat(entities.filter(e => e.id == id)));
+    }
+    if (entIds.includes(id)) {
+      this.entityIds$.next(entIds.filter(e => e != id).concat(entIds.filter(e => e == id)));
     }
   }
 

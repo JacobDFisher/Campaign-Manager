@@ -1,4 +1,21 @@
 .entityCard {
-    width: 500px;
+    width: 100%;
+    height: 100%;
     position: absolute;
+    padding: 0px;
+    display: flex;
+    flex-flow: column;
+}
+
+.handle {
+    padding: 16px 16px 0px 16px;
+}
+
+.content {
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.close {
+    float: right;
 }

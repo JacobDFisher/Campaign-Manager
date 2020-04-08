@@ -17,6 +17,8 @@ import { EntityEditComponent } from './components/entity-edit/entity-edit.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {MatDividerModule} from '@angular/material/divider';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     HttpClientModule,
     BrowserAnimationsModule,
     MatCardModule,
-    DragDropModule
+    DragDropModule,
+    MatDividerModule,
+    ScrollingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { merge } from 'rxjs';
-import { IdentityService } from 'src/app/services/identity.service';
 import { Entity } from 'src/app/interfaces/entity';
 import { ActiveEntitiesService } from 'src/app/services/active-entities.service';
-import { CdkDragEnd } from '@angular/cdk/drag-drop';
+import { CdkDragEnd, CdkDragStart } from '@angular/cdk/drag-drop';
+import { MyPosition, MySize } from 'src/app/interfaces/position';
 
 @Component({
   selector: 'app-entities-view',
@@ -13,12 +12,14 @@ import { CdkDragEnd } from '@angular/cdk/drag-drop';
 export class EntitiesViewComponent implements OnInit {
 
   entities: Entity[];
-  positions: {[id: number]: {x: number, y: number}};
+  positions: {[id: number]: MyPosition};
+  sizes: {[id: number]: MySize};
 
   constructor(private activeEntities: ActiveEntitiesService) { }
 
   ngOnInit(): void {
     this.positions = {};
+    this.sizes = {};
     this.activeEntities.entities$.subscribe(e => {this.entities = e;});
   }
 
@@ -27,9 +28,15 @@ export class EntitiesViewComponent implements OnInit {
     this.activeEntities.removeEntity(id);
   }
 
-  logEvent(event: CdkDragEnd){
-    console.log(event.source.getFreeDragPosition());
-    console.log(event.source.data);
-    this.positions[event.source.data] = event.source.getFreeDragPosition();
+  updatePosition(event: {id: number, pos: MyPosition}){
+    this.positions[event.id] = event.pos;
+  }
+
+  updateSize(event:{id: number, size: MySize}){
+    this.sizes[event.id] = event.size;
+  }
+
+  bringToFront(event: number){
+    this.activeEntities.moveToFront(event);
   }
 }

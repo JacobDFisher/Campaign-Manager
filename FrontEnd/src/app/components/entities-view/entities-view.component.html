@@ -1,5 +1,1 @@
-<div *ngFor="let entity of entities">
-    <div cdkDrag (cdkDragEnded)="logEvent($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="positions[entity.id]">
-    <app-entity-card (close)="close(entity.id)" [entity]="entity"></app-entity-card>
-</div>
-</div>
+<app-entity-card *ngFor="let entity of entities" (close)="close(entity.id)" (bringToTop)="bringToFront($event)" (move)="updatePosition($event)" (resize)="updateSize($event)" [entity]="entity" [position]="positions[entity.id] || {x: 0, y: 0}" [size]="sizes[entity.id] || {width: 500, height: 300}"></app-entity-card>
