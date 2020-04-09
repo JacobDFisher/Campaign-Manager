@@ -3,24 +3,35 @@ import { BehaviorSubject, merge } from 'rxjs';
 import { Entity } from '../interfaces/entity';
 import { IdentityService } from './identity.service';
 import { EntityService } from './entity.service';
+import { EntityHeader } from '../interfaces/entity-header';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActiveEntitiesService {
 
+  entityHeaders$: BehaviorSubject<EntityHeader[]>;
   entityIds$: BehaviorSubject<number[]>;
   entities$: BehaviorSubject<Entity[]>;
 
   constructor(private identityService: IdentityService, private entityService: EntityService) {
     this.entities$ = new BehaviorSubject(<Entity[]> []);
     this.entityIds$ = new BehaviorSubject(<number[]> []);
-    merge(this.identityService.identity$, this.identityService.groups$).subscribe(() => {
-      this.entityService.getEntities(this.entityIds$.value).subscribe(entities => this.entities$.next(entities.map(e => this.filterEntity(e)).filter(e => e)));
+    this.entityHeaders$ = new BehaviorSubject(<EntityHeader[]> []);
+    //let refreshTrigger = merge(this.identityService.identity$, this.identityService.groups$);
+    let refreshTrigger = this.identityService.groups$;
+    refreshTrigger.subscribe(() => {
+      this.entityService.getEntities(this.entityIds$.value).then(entities => this.entities$.next(entities.map(e => this.filterEntity(e)).filter(e => e)));
+    });
+    let headerRefreshTrigger = merge( this.identityService.groups$, this.entityService.unsavedEntities$ );
+    headerRefreshTrigger.subscribe(() => {
+      this.entityService.getEntityHeaders().then(headers => this.entityHeaders$.next(this.filterHeaders(headers)));
     });
   }
 
   addEntity(entity: Entity){
+    if(!entity)
+      return;
     let entities = this.entities$.value;
     let entIds = this.entityIds$.value;
     if (entities.filter(e => e?.id == entity.id).length == 0) {
@@ -53,6 +64,12 @@ export class ActiveEntitiesService {
     }
   }
 
+  filterHeaders(headers: EntityHeader[]): EntityHeader[] {
+    let groups = this.identityService.groups$.getValue()?.map(g => g.id);
+    let identity = this.identityService.identity$.getValue().id;
+    return headers.filter(h => h.permissions.author.id == identity || [...h.permissions.perms.map(p => p.grantee.id), ...h.permissions.revealed.map(r => r.group.id)].filter(x => groups.includes(x)).length > 0);
+  }
+
   filterEntity(entity: Entity): Entity {
     let groups = this.identityService.groups$.getValue().map(g => g.id);
     let identity = this.identityService.identity$.getValue().id;
@@ -68,4 +85,6 @@ export class ActiveEntitiesService {
       return null;
     }
   }
+
+
 }

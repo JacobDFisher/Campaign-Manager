@@ -1,9 +1,7 @@
-export interface MyPosition {
+export interface CardProps{
     x: number;
     y: number;
-}
-
-export interface MySize {
     width: number;
     height: number;
+    editMode: boolean;
 }

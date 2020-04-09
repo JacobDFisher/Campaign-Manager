@@ -17,7 +17,7 @@ namespace DataAccess
             mappedPermissions = new Dictionary<int, Lib.Models.Permissions>();
         }
 
-        // Map Up
+        #region MapUp
         public IEnumerable<Lib.Models.Entity> Map(IEnumerable<Models.Entity> entities)
         {
             if (entities == null)
@@ -170,8 +170,9 @@ namespace DataAccess
                 Source = (revealed.Source == null) ? new Lib.Models.Entity() { Id = revealed.SourceId } : Map(revealed.Source)
             };
         }
+        #endregion
 
-        // Map Down
+        #region MapDown
         public IEnumerable<Models.Entity> Map(IEnumerable<Lib.Models.Entity> entities)
         {
             if (entities == null)
@@ -222,8 +223,8 @@ namespace DataAccess
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                PermissionsId = (int) entity.Permissions?.Id,
-                //Permissions = Map(entity.Permissions),
+                PermissionsId = (entity.Permissions?.Id != null)? (int)entity.Permissions?.Id:0,
+                Permissions =   (entity.Permissions?.Id == 0)? Map(entity.Permissions) : null,
                 Details = Map(entity.Details).Concat(Map(entity.Properties)).ToList(),
                 EntityGroups = Map<Models.Entity>(entity.Groups)
             };
@@ -236,8 +237,8 @@ namespace DataAccess
             return new Models.Permissions()
             {
                 Id = permissions.Id,
-                Author = Map(permissions.Author),
-                AuthorId = (int)permissions.Author?.Id,
+                AuthorId = (permissions.Author?.Id != null)? (int)permissions.Author?.Id : 0,
+                Author =   (permissions.Author?.Id == 0) ? Map(permissions.Author) : null,
                 Perms = Map(permissions.Perms),
                 Revealeds = Map(permissions.Revealed)
             };
@@ -249,7 +250,9 @@ namespace DataAccess
                 return null;
             return new Models.Identity()
             {
-                Id = identity.Id
+                Id = identity.Id,
+                Name = identity.Name,
+                IdentityGroups = Map<Models.Identity>(identity.Groups)
             };
         }
         public Models.Detail Map(Property property)
@@ -266,10 +269,10 @@ namespace DataAccess
                 Id = detail.Id,
                 Name = null,
                 Description = detail.Description,
-                //Entity = Map(detail.Entity),
-                //EntityId = (int)detail.Entity?.Id,
-                //Permissions = Map(detail.Permissions),
-                PermissionsId = (int)detail.Permissions?.Id
+                EntityId = (detail.Entity?.Id != null)?(int)detail.Entity?.Id:0,
+                Entity =   (detail.Entity?.Id == 0) ? Map(detail.Entity) : null,
+                PermissionsId = (detail.Permissions?.Id != null) ? (int)detail.Permissions?.Id : 0,
+                Permissions =   (detail.Permissions?.Id == 0) ? Map(detail.Permissions) : null
             };
         }
         public Models.Revealed Map(Lib.Models.Revealed rev)
@@ -279,10 +282,10 @@ namespace DataAccess
             return new Models.Revealed()
             {
                 Percentage = rev.Percentage,
-                Source = Map(rev.Source),
-                SourceId = (int)rev.Source?.Id,
-                Group = Map(rev.Group),
-                GroupId = (int)rev.Group?.Id
+                SourceId = (rev.Source?.Id != null) ? (int)rev.Source?.Id:0,
+                Source =   (rev.Source?.Id == 0) ? Map(rev.Source) : null,
+                GroupId =  (rev.Group?.Id != null) ? (int)rev.Group?.Id : 0,
+                Group =    (rev.Group?.Id == 0) ? Map(rev.Group) : null
             };
         }
         public Models.Permission Map(Lib.Models.Permission perm)
@@ -291,10 +294,10 @@ namespace DataAccess
                 return null;
             return new Models.Permission()
             {
-                Grantee = Map(perm.Grantee),
-                GranteeId = (int)perm.Grantee?.Id,
-                Grantor = Map(perm.Grantor),
-                GrantorId = (int)perm.Grantor?.Id,
+                GranteeId = (perm.Grantee?.Id != null) ? (int)perm.Grantee?.Id : 0,
+                Grantee   = (perm.Grantee?.Id == 0) ? Map(perm.Grantee) : null,
+                GrantorId = (perm.Grantor?.Id != null) ? (int)perm.Grantor?.Id : 0,
+                Grantor   = (perm.Grantor?.Id == 0) ? Map(perm.Grantor) : null,
                 PermissionType = perm.PermissionType
             };
         }
@@ -305,8 +308,8 @@ namespace DataAccess
                 return null;
             return new GroupJoin<T>()
             {
-                Group = Map(g),
-                GroupId = (int)g?.Id
+                GroupId = (g?.Id != null) ? (int)g?.Id : 0,
+                Group = (g?.Id == 0) ? Map(g) : null
             };
         }
 
@@ -321,5 +324,6 @@ namespace DataAccess
                 MemberOf = Map<Models.Group>(g.MemberOf)
             };
         }
+        #endregion
     }
 }

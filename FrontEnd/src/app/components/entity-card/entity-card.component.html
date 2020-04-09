@@ -1,10 +1,11 @@
-<mat-card class="entityCard" [style.width.px]="size.width" [style.height.px]="size.height" cdkDrag (cdkDragEnded)="endMove($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="position">
-    <div (mousedown)="startMove($event)" class="handle" cdkDragHandle>{{entity.name}}<strong class="close" (click)="close.emit()">X</strong><mat-divider></mat-divider></div>
-    
+<mat-card class="entityCard" [style.width.px]="properties.width" [style.height.px]="properties.height" cdkDrag (cdkDragEnded)="endMove($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="properties">
+    <div (mousedown)="startMove($event)" class="handle" cdkDragHandle><div class="name">{{entity.name}}<strong class="close" (click)="close.emit()">X</strong></div>
+        <mat-divider></mat-divider>
+    </div>
     <div class="content">
-    <app-entity-view [entity]="entity" *ngIf="!editMode"></app-entity-view>
-    <app-entity-edit [entity]="entity" *ngIf="editMode"></app-entity-edit>
-    <button (click)="toggleEditMode()"><span *ngIf="!editMode">Edit Entity</span><span *ngIf="editMode">Save</span></button>
+    <app-entity-view [entity]="entity" *ngIf="!properties.editMode"></app-entity-view>
+    <app-entity-edit (update)="updateEntity($event)" [entity]="entity" *ngIf="properties.editMode"></app-entity-edit>
+    <button (click)="toggleEditMode()"><span *ngIf="!properties.editMode">Edit Entity</span><span *ngIf="properties.editMode">Save</span></button>
 </div>
     
 </mat-card>

@@ -1,5 +1,8 @@
 <ul>
     <li *ngFor="let entity of entities">
-        <button (click)="selectEntity(entity.id)">{{entity.name}}</button>
+        <button (click)="selectEntity(entity.id)">{{entity.name || entity.id}}</button>
+    </li>
+    <li>
+        <button (click)="newEntity()">Add Entity</button>
     </li>
 </ul>

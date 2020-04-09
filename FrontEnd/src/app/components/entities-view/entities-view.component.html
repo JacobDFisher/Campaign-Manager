@@ -1,1 +1,9 @@
-<app-entity-card *ngFor="let entity of entities" (close)="close(entity.id)" (bringToTop)="bringToFront($event)" (move)="updatePosition($event)" (resize)="updateSize($event)" [entity]="entity" [position]="positions[entity.id] || {x: 0, y: 0}" [size]="sizes[entity.id] || {width: 500, height: 300}"></app-entity-card>
+<app-entity-card
+    *ngFor="let entity of entities"
+    (close)="close(entity.id)"
+    (bringToTop)="bringToFront($event)"
+    (propChange)="updateProps($event)"
+    (idChange)="updateId($event)"
+    [entity]="entity"
+    [properties]="cardProps[entity.id] || defaultProps(entity.id)">
+</app-entity-card>

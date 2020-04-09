@@ -17,13 +17,19 @@ export class EntityListComponent implements OnInit {
   constructor(public entityService: EntityService, private identityService: IdentityService, private activeEntitiesService: ActiveEntitiesService) { }
 
   ngOnInit(): void {
-    merge(this.identityService.identity$, this.identityService.groups$).subscribe(() => {
-      this.entityService.getEntityHeaders().subscribe(chars => this.entities = chars);
+    //let refreshTrigger = merge(this.identityService.identity$, this.identityService.groups$);
+    let refreshTrigger = this.activeEntitiesService.entityHeaders$;
+    refreshTrigger.subscribe(headers => {
+      this.entities = headers;
     });
   }
 
   selectEntity(id: number){
     this.entityService.getEntity(id).subscribe(ent => this.activeEntitiesService.addEntity(ent));
+  }
+
+  newEntity(){
+    this.activeEntitiesService.addEntity(this.entityService.newEntity());
   }
 
 }
