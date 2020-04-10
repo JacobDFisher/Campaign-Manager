@@ -19,6 +19,8 @@ import { MatCardModule } from '@angular/material/card';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {MatDividerModule} from '@angular/material/divider';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatCardModule,
     DragDropModule,
     MatDividerModule,
-    ScrollingModule
+    ScrollingModule,
+    MatSidenavModule,
+    AngularResizedEventModule
   ],
   providers: [],
   bootstrap: [AppComponent]

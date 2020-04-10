@@ -4,4 +4,8 @@ export interface CardProps{
     width: number;
     height: number;
     editMode: boolean;
+    storedWidth: number;
+    storedHeight: number;
+    storedX: number;
+    storedY: number;
 }

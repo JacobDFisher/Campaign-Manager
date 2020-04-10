@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EntityHeader } from 'src/app/interfaces/entity-header';
 import { EntityService } from 'src/app/services/entity.service';
 import { IdentityService } from 'src/app/services/identity.service';
@@ -14,6 +14,8 @@ export class EntityListComponent implements OnInit {
 
   entities: EntityHeader[];
 
+  @Output() resize: EventEmitter<any> = new EventEmitter();
+
   constructor(public entityService: EntityService, private identityService: IdentityService, private activeEntitiesService: ActiveEntitiesService) { }
 
   ngOnInit(): void {
@@ -21,6 +23,7 @@ export class EntityListComponent implements OnInit {
     let refreshTrigger = this.activeEntitiesService.entityHeaders$;
     refreshTrigger.subscribe(headers => {
       this.entities = headers;
+      this.resize.emit();
     });
   }
 

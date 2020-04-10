@@ -1,4 +1,4 @@
-<mat-card class="entityCard" [style.width.px]="properties.width" [style.height.px]="properties.height" cdkDrag (cdkDragEnded)="endMove($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="properties">
+<mat-card class="entityCard" [style.width.px]="properties.width" [style.height.px]="properties.height" cdkDragBoundary=".entityCardContainer" cdkDrag (cdkDragEnded)="endMove($event)" [cdkDragData]="entity.id" [cdkDragFreeDragPosition]="properties">
     <div (mousedown)="startMove($event)" class="handle" cdkDragHandle><div class="name">{{entity.name}}<strong class="close" (click)="close.emit()">X</strong></div>
         <mat-divider></mat-divider>
     </div>

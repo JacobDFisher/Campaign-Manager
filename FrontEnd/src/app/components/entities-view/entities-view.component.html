@@ -1,3 +1,4 @@
+<div class="entityCardContainer" (resized)="onResized($event)">
 <app-entity-card
     *ngFor="let entity of entities"
     (close)="close(entity.id)"
@@ -7,3 +8,4 @@
     [entity]="entity"
     [properties]="cardProps[entity.id] || defaultProps(entity.id)">
 </app-entity-card>
+</div>

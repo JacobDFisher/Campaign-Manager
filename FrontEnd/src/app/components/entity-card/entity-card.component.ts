@@ -58,6 +58,8 @@ export class EntityCardComponent implements OnInit {
     let newPos = event.source.getFreeDragPosition();
     this.properties.x = newPos.x;
     this.properties.y = newPos.y;
+    this.properties.storedX = newPos.x;
+    this.properties.storedY = newPos.y;
     this.notifyProps();
   }
 

@@ -65,9 +65,13 @@ export class ActiveEntitiesService {
   }
 
   filterHeaders(headers: EntityHeader[]): EntityHeader[] {
+    try{
     let groups = this.identityService.groups$.getValue()?.map(g => g.id);
     let identity = this.identityService.identity$.getValue().id;
     return headers.filter(h => h.permissions.author.id == identity || [...h.permissions.perms.map(p => p.grantee.id), ...h.permissions.revealed.map(r => r.group.id)].filter(x => groups.includes(x)).length > 0);
+    } catch {
+      return [];
+    }    
   }
 
   filterEntity(entity: Entity): Entity {

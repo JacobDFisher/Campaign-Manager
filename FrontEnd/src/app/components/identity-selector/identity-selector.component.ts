@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IdentityService } from 'src/app/services/identity.service';
 import { Identity } from 'src/app/interfaces/identity';
 
@@ -9,6 +9,8 @@ import { Identity } from 'src/app/interfaces/identity';
 })
 export class IdentitySelectorComponent implements OnInit {
 
+  @Output() resize: EventEmitter<any> = new EventEmitter();
+
   identities: Identity[];
   identity: Identity;
   groups: string[];
@@ -17,13 +19,16 @@ export class IdentitySelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.identityService.getIdentities().subscribe(ids => {
-      this.identities = ids
+      this.identities = ids;
+      this.resize.emit();
     });
     this.identityService.identity$.subscribe(id => {
       this.identity = id;
+      this.resize.emit();
     });
     this.identityService.groups$.subscribe(groups => {
       this.groups = groups?.map(g => g.name);
+      this.resize.emit();
     });
   }
 

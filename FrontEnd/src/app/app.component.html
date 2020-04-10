@@ -1,8 +1,5 @@
-<h1 [style.margin]="0">Welcome</h1>
-<div class="menu">
-<app-identity-selector></app-identity-selector>
-<app-entity-list></app-entity-list>
-</div>
-<div class="outlet">
-<router-outlet></router-outlet>
-</div>
+<mat-sidenav-container class="test" #sncont>
+    <mat-sidenav opened mode="side"><app-identity-selector (resize)="sncont.updateContentMargins()"></app-identity-selector></mat-sidenav>
+    <mat-sidenav opened mode="side" position="end"><app-entity-list (resize)="sncont.updateContentMargins()"></app-entity-list></mat-sidenav>
+    <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+</mat-sidenav-container>
