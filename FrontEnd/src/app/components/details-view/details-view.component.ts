@@ -12,6 +12,7 @@ import { Identity } from 'src/app/interfaces/identity';
 export class DetailsViewComponent implements OnInit {
 
   @Input() details: Detail[];
+  @Input() editMode: boolean;
   @Output() update: EventEmitter<Detail[]> = new EventEmitter();
   constructor(private identityService: IdentityService) { }
   count = 0;

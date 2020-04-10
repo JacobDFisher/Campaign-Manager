@@ -1,5 +1,6 @@
 .menu {
     float: left;
+    min-width: 20%;
 }
 
 .outlet {

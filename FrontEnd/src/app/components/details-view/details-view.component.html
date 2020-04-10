@@ -1,4 +1,4 @@
-<div><strong>Details:</strong><button (click)="addDetail()">+</button><br>
+<div><strong>Details:</strong><button *ngIf="editMode" (click)="addDetail()">+</button><br>
     <ul>
         <li *ngFor="let detail of details">
             <app-detail-view [detail]="detail"></app-detail-view>

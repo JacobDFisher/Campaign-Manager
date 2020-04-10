@@ -1,5 +1,5 @@
 <div *ngIf="entity">
     <!-- <span>{{entity.id}}:{{entity.name}}</span> -->
     <app-properties-view [properties]="entity.properties"></app-properties-view>
-    <app-details-view (update)="updateDetails($event)" [details]="entity.details"></app-details-view>
+    <app-details-view (update)="updateDetails($event)" [details]="entity.details" [editMode]="true"></app-details-view>
 </div>
